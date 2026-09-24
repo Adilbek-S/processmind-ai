@@ -4,6 +4,7 @@ import streamlit as st
 
 from processmind.config import get_settings
 from processmind.rag.errors import KnowledgeBaseError
+from processmind.ui.style import apply_style, page_header
 from processmind.rag.knowledge_base import (
     build_knowledge_base,
     build_query_from_process,
@@ -16,11 +17,11 @@ RESULTS_KEY = "kb_results"
 SHOWN_CHUNKS = 2  # сколько лучших разделов показывать как объяснение релевантности
 
 st.set_page_config(page_title="База знаний — ProcessMind AI", page_icon="📚", layout="wide")
-st.title("📚 Automation Knowledge Base")
-st.caption(
-    "Семантический поиск (RAG) по синтетической базе паттернов автоматизации: эмбеддинги OpenAI "
-    "text-embedding-3-small + ChromaDB. Запрос сравнивается по смыслу с разделами паттернов, "
-    "а не по совпадению слов."
+apply_style()
+page_header(
+    "База знаний: паттерны автоматизации",
+    "Семантический поиск (RAG) по синтетической базе: эмбеддинги OpenAI text-embedding-3-small + ChromaDB. "
+    "Запрос сравнивается по смыслу с разделами паттернов, а не по совпадению слов.",
 )
 
 settings = get_settings()

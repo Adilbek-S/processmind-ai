@@ -2,8 +2,11 @@
 
 import streamlit as st
 
+from processmind.ui.style import apply_style, page_header
+
 st.set_page_config(page_title="О проекте — ProcessMind AI", page_icon="ℹ️", layout="wide")
-st.title("ℹ️ О проекте")
+apply_style()
+page_header("О проекте", "Архитектура, стек и ограничения MVP.")
 
 st.markdown(
     """
@@ -28,8 +31,8 @@ st.markdown(
 ### Архитектура (модули)
 - `processmind.models` — единая модель процесса **ProcessSpec** (Pydantic)
 - `processmind.parsing` — Document Parser (PyMuPDF), извлечение из текста и Vision Parser (GPT-4o-mini), построение и валидация ProcessSpec
-- `processmind.workflow` — граф LangGraph: extract_process → analyze → generate_tobe → evaluate
-- `processmind.analysis` — Process Analyzer (эвристики автоматизации, генерация TO-BE-черновика)
+- `processmind.workflow` — главный граф LangGraph (validate_process → calculate_metrics → retrieve_automation_patterns → generate_recommendations → validate_recommendations → human_approval → simulate_automation → generate_report)
+- `processmind.analysis` — Skill process-analysis (методика → промпт LLM), рекомендации и их валидация, AnalysisReport
 - `processmind.rag` — Automation Knowledge Base: паттерны (Markdown), эмбеддинги, ChromaDB, поиск Top-3
 - `processmind.mcp` — собственный MCP-сервер (validate_process, calculate_process_metrics, simulate_automation и др.) и MCP-клиент (stdio) для LangGraph
 - `processmind.visualization` — построение AS-IS/TO-BE диаграмм (Graphviz)
@@ -38,7 +41,9 @@ st.markdown(
 ### Ограничения текущего MVP
 - Извлечение из PDF/PNG/JPG требует OPENAI_API_KEY; PDF без текстового слоя (сканы) не
   поддерживаются — загрузите их как изображение.
-- Ручной ввод текста в «Анализе процесса» по-прежнему извлекает шаги построчно (без LLM).
+- Анализ работает только над подтверждённым процессом со страницы «Распознавание процесса».
+- Качество рекомендаций зависит от модели (GPT-4o-mini); результат всегда проходит программную валидацию и подтверждение пользователя.
+- Все оценки эффекта автоматизации — модельные, на основе заданных предположений.
 - Индексация и поиск по базе знаний требуют OPENAI_API_KEY (офлайн-подстановки эмбеддингов нет); база знаний — 14 синтетических паттернов.
 - Авторизация, внешние интеграции и сложные хранилища данных не предусмотрены.
 - Все данные для демонстрации — синтетические.
