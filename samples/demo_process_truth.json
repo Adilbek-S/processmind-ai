@@ -1,0 +1,60 @@
+{
+  "name": "Согласование заявки на закупку оборудования",
+  "goal": "Обеспечить своевременное согласование и оформление закупки оборудования.",
+  "participants": [
+    "Инициатор",
+    "Менеджер по закупкам",
+    "Финансовый директор",
+    "Бухгалтер"
+  ],
+  "steps": [
+    {
+      "name": "Подать заявку на закупку",
+      "actor": "Инициатор",
+      "duration_minutes": null,
+      "is_manual": null
+    },
+    {
+      "name": "Проверить комплектность заявки",
+      "actor": "Менеджер по закупкам",
+      "duration_minutes": 30,
+      "is_manual": true
+    },
+    {
+      "name": "Согласовать бюджет",
+      "actor": "Финансовый директор",
+      "duration_minutes": 120,
+      "is_manual": null
+    },
+    {
+      "name": "Выбрать поставщика",
+      "actor": "Менеджер по закупкам",
+      "duration_minutes": null,
+      "is_manual": true
+    },
+    {
+      "name": "Заключить договор с поставщиком",
+      "actor": null,
+      "duration_minutes": 4320,
+      "is_manual": null
+    },
+    {
+      "name": "Оплатить счёт",
+      "actor": "Бухгалтер",
+      "duration_minutes": 60,
+      "is_manual": false
+    },
+    {
+      "name": "Принять оборудование",
+      "actor": "Инициатор",
+      "duration_minutes": null,
+      "is_manual": null
+    },
+    {
+      "name": "Закрыть заявку",
+      "actor": "Менеджер по закупкам",
+      "duration_minutes": 5,
+      "is_manual": false
+    }
+  ]
+}

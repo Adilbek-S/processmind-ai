@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Виртуальное окружение
+.venv/
+venv/
+env/
+
+# Секреты / окружение
+.env
+
+# Данные приложения (векторная база, кэш)
+data/
+chroma/
+.streamlit/secrets.toml
+
+# Тесты / инструменты
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

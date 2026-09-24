@@ -1,0 +1,9 @@
+[project]
+name = "processmind-ai"
+version = "0.1.0"
+description = "ProcessMind AI — интеллектуальный анализ и автоматизация бизнес-процессов (LLM Engineering, финальный проект)"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
