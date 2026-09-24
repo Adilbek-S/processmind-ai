@@ -291,6 +291,11 @@ def test_query_for_step_uses_only_known_facts():
     assert not any(word in bare for word in ("Исполнитель", "вручную", "Длительность"))  # неизвестное не домысливается
 
 
+def test_step_query_has_no_shared_process_context():
+    q = build_query_from_process(make_spec(), "step-1")
+    assert "Обработка заявки" not in q and "Ответить клиенту" not in q  # общий контекст стирает различия между операциями
+
+
 def test_query_for_whole_process_lists_operations():
     q = build_query_from_process(make_spec())
     assert "Обработка заявки" in q and "1) Проверить данные (вручную)" in q and "2) Выставить счёт" in q

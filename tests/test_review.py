@@ -1,4 +1,4 @@
-"""Тесты применения пользовательских правок (шаг подтверждения) и передачи spec в пайплайн."""
+"""Тесты применения пользовательских правок (шаг подтверждения)."""
 
 import pytest
 
@@ -11,7 +11,6 @@ from processmind.parsing.review import (
     apply_edits,
     spec_to_rows,
 )
-from processmind.workflow.graph import build_workflow
 
 
 def make_spec() -> ProcessSpec:
@@ -93,10 +92,3 @@ def test_row_count_mismatch_rejected():
     spec = make_spec()
     with pytest.raises(ReviewError):
         apply_edits(spec, spec_to_rows(spec)[:1])
-
-
-def test_workflow_uses_confirmed_spec_instead_of_naive_extraction():
-    spec = make_spec()
-    result = build_workflow().invoke({"raw_text": "", "errors": [], "process_spec": spec})
-    assert result["process_spec"] == spec
-    assert result["analysis"].process_id == "p"

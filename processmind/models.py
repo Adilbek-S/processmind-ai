@@ -40,24 +40,6 @@ class ProcessSpec(BaseModel):
     metadata: dict = Field(default_factory=dict)
 
 
-class AutomationOpportunity(BaseModel):
-    """Возможность автоматизации, найденная для конкретного шага процесса."""
-
-    step_id: str
-    step_name: str
-    score: int
-    reasons: list[str] = Field(default_factory=list)
-    suggestion: str
-
-
-class AnalysisResult(BaseModel):
-    """Результат анализа процесса: сводка и найденные возможности автоматизации."""
-
-    process_id: str
-    summary: str
-    opportunities: list[AutomationOpportunity] = Field(default_factory=list)
-
-
 class EvaluationResult(BaseModel):
     """Результат проверки качества ProcessSpec / пайплайна (Evaluation Pipeline)."""
 

@@ -268,10 +268,16 @@ def list_indexed_patterns(
 
 
 def build_query_from_process(spec: ProcessSpec, step_id: str | None = None) -> str:
-    """Формирует поисковый запрос из ProcessSpec (только из известных данных — без домыслов)."""
-    lines = [f"Бизнес-процесс: {spec.name}."]
-    if spec.goal:
-        lines.append(f"Цель: {spec.goal}.")
+    """Формирует поисковый запрос из ProcessSpec (только из известных данных — без домыслов).
+
+    Запрос для операции содержит только факты об операции: название процесса и цель общие для всех
+    операций и «перетягивают» эмбеддинг запроса, из-за чего разные операции находят одни и те же паттерны.
+    """
+    lines: list[str] = []
+    if step_id is None:
+        lines.append(f"Бизнес-процесс: {spec.name}.")
+        if spec.goal:
+            lines.append(f"Цель: {spec.goal}.")
 
     if step_id is not None:
         step = next((s for s in spec.steps if s.id == step_id), None)

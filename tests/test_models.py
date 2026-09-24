@@ -1,4 +1,4 @@
-from processmind.models import AnalysisResult, AutomationOpportunity, EvaluationResult, ProcessSpec, ProcessStep
+from processmind.models import EvaluationResult, ProcessSpec, ProcessStep
 
 
 def test_process_step_defaults():
@@ -19,14 +19,6 @@ def test_process_spec_holds_steps():
     assert spec.name == "Обработка заявки"
     assert len(spec.steps) == 1
     assert spec.steps[0].id == "step-1"
-
-
-def test_analysis_result_and_opportunity():
-    opp = AutomationOpportunity(
-        step_id="step-1", step_name="Приём заявки", score=2, reasons=["ручной шаг"], suggestion="Автоматизировать"
-    )
-    result = AnalysisResult(process_id="p1", summary="Тест", opportunities=[opp])
-    assert result.opportunities[0].score == 2
 
 
 def test_evaluation_result_defaults():
