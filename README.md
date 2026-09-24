@@ -157,10 +157,41 @@ pytest
 распознавания и поиска с реальными моделями проверяют `scripts.verify_live` и
 `scripts.verify_kb_live`.
 
-## Собственный MCP-сервер
+## Собственный MCP-сервер и MCP-клиент
 
-Запустить MCP-сервер ProcessMind отдельно (для подключения из MCP-клиента):
+Сервер (`processmind/mcp/server.py`, Python MCP SDK, `MCPServer` — бывший FastMCP) работает отдельным
+процессом с транспортом stdio:
 
 ```powershell
 python -m processmind.mcp.server
+```
+
+| Инструмент | Что делает |
+|---|---|
+| `validate_process` | Проверка структуры: схема ProcessSpec, обязательные поля, уникальность ID операций, длительности, связи, циклы. Возвращает `errors` и `warnings` |
+| `calculate_process_metrics` | Число операций (всего/ручных/автоматизированных), доля ручных, время процесса и ручных операций, условная месячная трудоёмкость (нужен `runs_per_month`) |
+| `simulate_automation` | Модельная оценка: время до/после, абсолютное и процентное сокращение, доля ручных до/после, условная месячная экономия |
+| `search_knowledge_base` | Поиск паттернов автоматизации (RAG) |
+| `get_process_spec_schema` | JSON-схема ProcessSpec |
+
+Все расчёты — обычный Python (`processmind/mcp/process_tools.py`), без LLM. Неуказанные длительности
+не заменяются нулями (они перечисляются в `steps_without_duration`), операции с неуказанным типом не
+считаются ручными (для доли есть `manual_share_upper_bound`). В `simulate_automation` длительность
+после автоматизации задаёт вызывающий для каждой операции — процент сокращения не подставляется;
+результат помечен `is_model_estimate: true`.
+
+Клиент (`processmind/mcp/client.py`) — стандартный `stdio_client` + `ClientSession`: запускает сервер
+подпроцессом и вызывает инструменты по JSON-RPC. Для LangGraph есть `MCPClient` (async) и
+`SyncMCPClient` (одна долгоживущая сессия для sync-узлов):
+
+```python
+from processmind.mcp.client import SyncMCPClient
+
+with SyncMCPClient() as mcp:
+    metrics = mcp.calculate_process_metrics(spec, runs_per_month=120)
+    result = mcp.simulate_automation(spec, [{"step_id": "step-2", "new_duration_minutes": 2}], 120)
+```
+
+```powershell
+python -m scripts.demo_mcp   # живая демонстрация: сервер + клиент + результаты
 ```
