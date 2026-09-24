@@ -8,9 +8,10 @@
 находит возможности автоматизации и формирует черновик целевой модели **TO-BE** с
 AS-IS / TO-BE визуализацией.
 
-> ⚠️ **Статус MVP:** модуль извлечения процесса из PDF/PNG/JPG работает на реальных вызовах
-> OpenAI (GPT-4o-mini) и **требует `OPENAI_API_KEY`**. Анализ процесса, TO-BE и оценка пока
-> построены на детерминированных правилах (без LLM).
+> ⚠️ **Статус MVP:** извлечение процесса из PDF/PNG/JPG (GPT-4o-mini) и поиск паттернов
+> автоматизации (RAG: text-embedding-3-small + ChromaDB) работают на реальных вызовах OpenAI и
+> **требуют `OPENAI_API_KEY`**. Анализ процесса, TO-BE и оценка пока построены на
+> детерминированных правилах (без LLM).
 
 ## Стек
 
@@ -31,7 +32,7 @@ app.py                          # Streamlit: страница «Главная»
 pages/
   1_Распознавание_процесса.py   # PDF/PNG/JPG -> ProcessSpec, правка таблицы, подтверждение
   2_Анализ_процесса.py          # LangGraph-пайплайн над подтверждённым ProcessSpec
-  3_База_знаний.py              # RAG: добавление документов и поиск
+  3_База_знаний.py              # Automation Knowledge Base: индексация и семантический поиск (Top-3)
   4_О_проекте.py                # архитектура, стек, ограничения MVP
 processmind/
   config.py                     # настройки из переменных окружения (.env)
@@ -48,13 +49,18 @@ processmind/
   analysis/
     process_analyzer.py         # Process Analyzer + генерация TO-BE-черновика
   rag/
-    engine.py                   # RAG Engine (ChromaDB)
+    patterns.py                 # загрузка Markdown-паттернов, chunking по разделам
+    embeddings.py               # эмбеддинги OpenAI (без офлайн-подстановки)
+    knowledge_base.py           # build_knowledge_base, search_automation_patterns, get_pattern_by_id
   mcp/
     server.py                   # собственный MCP-сервер (FastMCP)
   visualization/
     diagrams.py                 # AS-IS / TO-BE диаграммы (Graphviz)
   evaluation/
     pipeline.py                 # Evaluation Pipeline
+knowledge_base/
+  automation_patterns/          # 14 синтетических паттернов автоматизации (по одному .md на паттерн)
+scripts/                        # demo_data, verify_live, verify_kb_live
 tests/                          # pytest
 ```
 
@@ -108,15 +114,48 @@ python -m scripts.demo_data        # samples/demo_process.pdf, .png, demo_proces
 python -m scripts.verify_live      # живой прогон обоих сценариев с реальным OpenAI, сравнение с эталоном
 ```
 
+## Automation Knowledge Base (RAG)
+
+`knowledge_base/automation_patterns/` — 14 синтетических паттернов автоматизации, каждый в своём
+Markdown-файле (ID, название, описание проблемы, условия применимости, предлагаемый подход,
+ожидаемый качественный эффект, ограничения). Числовых эффектов и ссылок на нормативные документы
+в паттернах нет.
+
+Пайплайн: Markdown → chunking по разделам (1 раздел = 1 chunk) → `text-embedding-3-small` →
+ChromaDB (косинусная метрика) → поиск по вектору запроса → Top-3 паттернов. С каждым фрагментом
+хранятся `pattern_id`, `title`, `source`, `section`, `chunk_id`.
+
+```python
+from processmind.rag.knowledge_base import build_knowledge_base, search_automation_patterns, get_pattern_by_id
+
+build_knowledge_base()                                  # идемпотентно: неизменённые документы не пересчитываются
+matches = search_automation_patterns("вручную перепечатываем данные из сканов", top_k=3)
+pattern = get_pattern_by_id(matches[0].pattern_id)      # полный паттерн из индекса
+```
+
+Повторная индексация не создаёт дублей: chunk_id детерминирован, документ сравнивается по хэшу
+содержимого, изменённый паттерн заменяется целиком, удалённый из каталога — убирается из индекса.
+Коллекция называется по модели эмбеддингов, поэтому векторы разных моделей не смешиваются.
+Без `OPENAI_API_KEY` индексация и поиск завершаются ошибкой (подмены эмбеддингов нет).
+
+В интерфейсе («База знаний») запрос можно ввести вручную или сформировать из подтверждённого
+процесса (весь процесс либо отдельная операция).
+
+```powershell
+python -m scripts.verify_kb_live   # живая проверка: 14 сценариев, нужный паттерн должен быть в Top-3
+```
+
 ## Тесты
 
 ```powershell
 pytest
 ```
 
-Тесты извлечения не обращаются к OpenAI: клиент подменён (или используется локальный HTTP-двойник
-для проверки формата запроса SDK). Качество распознавания моделью проверяет только
-`scripts.verify_live`.
+Тесты не обращаются к OpenAI: клиент подменён либо используется локальный HTTP-двойник для проверки
+формата запросов SDK. В тестах RAG эмбеддинги лексические (тестовый двойник), поэтому они проверяют
+обвязку — индексацию, дедупликацию, метаданные, группировку, а не семантику. Качество
+распознавания и поиска с реальными моделями проверяют `scripts.verify_live` и
+`scripts.verify_kb_live`.
 
 ## Собственный MCP-сервер
 

@@ -80,7 +80,8 @@ def main() -> int:
             continue
 
         for i, s in enumerate(result.spec.steps, start=1):
-            print(f"{i}. {s.name} | {s.actor or '—'} | {s.duration_minutes if s.duration_minutes is not None else '—'} мин | {s.is_manual}")
+            links = ",".join(n.removeprefix("step-") for n in s.next_steps) or "—"
+            print(f"{i}. {s.name} | {s.actor or '—'} | {s.duration_minutes if s.duration_minutes is not None else '—'} мин | {s.is_manual} | далее: {links}")
         for w in result.warnings:
             print(f"  ! {w}")
         problems = compare(result.spec, truth)

@@ -103,6 +103,14 @@ def test_linear_order_assumed_when_no_links_given_and_user_is_warned():
     assert any("порядок следования" in w for w in result.warnings)
 
 
+def test_image_branching_is_flagged_for_review_but_pdf_branching_is_not():
+    steps = [raw_step(1, next_orders=[2, 3]), raw_step(2), raw_step(3)]
+    image = build(raw_process(steps), source_text=None, source_type="image")
+    assert any("распознано ветвление: операция №1 → №2, 3" in w for w in image.warnings)
+    pdf = build(raw_process(steps), source_text="текст")
+    assert not any("ветвление" in w for w in pdf.warnings)
+
+
 def test_link_to_nonexistent_operation_is_dropped_with_warning():
     result = build(raw_process([raw_step(1, next_orders=[2, 99]), raw_step(2)]))
     assert result.spec.steps[0].next_steps == ["step-2"]

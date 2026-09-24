@@ -30,7 +30,7 @@ st.markdown(
 - `processmind.parsing` — Document Parser (PyMuPDF), извлечение из текста и Vision Parser (GPT-4o-mini), построение и валидация ProcessSpec
 - `processmind.workflow` — граф LangGraph: extract_process → analyze → generate_tobe → evaluate
 - `processmind.analysis` — Process Analyzer (эвристики автоматизации, генерация TO-BE-черновика)
-- `processmind.rag` — RAG Engine на ChromaDB
+- `processmind.rag` — Automation Knowledge Base: паттерны (Markdown), эмбеддинги, ChromaDB, поиск Top-3
 - `processmind.mcp` — собственный MCP-сервер (FastMCP)
 - `processmind.visualization` — построение AS-IS/TO-BE диаграмм (Graphviz)
 - `processmind.evaluation` — Evaluation Pipeline (структурные проверки, заготовка под LangSmith)
@@ -39,7 +39,7 @@ st.markdown(
 - Извлечение из PDF/PNG/JPG требует OPENAI_API_KEY; PDF без текстового слоя (сканы) не
   поддерживаются — загрузите их как изображение.
 - Ручной ввод текста в «Анализе процесса» по-прежнему извлекает шаги построчно (без LLM).
-- RAG Engine работает в офлайн-режиме без ключа OpenAI (fallback-логика).
+- Индексация и поиск по базе знаний требуют OPENAI_API_KEY (офлайн-подстановки эмбеддингов нет); база знаний — 14 синтетических паттернов.
 - Авторизация, внешние интеграции и сложные хранилища данных не предусмотрены.
 - Все данные для демонстрации — синтетические.
 """

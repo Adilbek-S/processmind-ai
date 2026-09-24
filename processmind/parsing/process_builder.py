@@ -109,6 +109,15 @@ def build_process_spec(
             )
         )
 
+    if text_norm is None:  # схема: связи и ветвления не сверить с текстом — просим проверить глазами
+        for i, step in enumerate(built, start=1):
+            if len(step.next_steps) > 1:
+                targets = ", ".join(n.removeprefix("step-") for n in step.next_steps)
+                warnings.append(
+                    f"На схеме распознано ветвление: операция №{i} → №{targets}. "
+                    "Проверьте связи по исходному изображению (в таблице они не редактируются)."
+                )
+
     if linear_fallback and len(built) > 1:
         warnings.append("Связи между операциями не указаны явно — принят порядок следования в документе.")
 

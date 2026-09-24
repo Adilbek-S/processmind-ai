@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     # ChromaDB
     chroma_persist_dir: str = "./data/chroma"
 
+    # Automation Knowledge Base: каталог Markdown-паттернов (None — каталог по умолчанию в репозитории)
+    knowledge_base_dir: str | None = None
+
     # LangSmith / LangChain tracing
     langchain_tracing_v2: bool = False
     langchain_api_key: str | None = None
