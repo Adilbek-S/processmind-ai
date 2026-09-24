@@ -43,6 +43,18 @@ ProcessMind AI делает то же самое в проверяемом ви�
 | **3. TO-BE и отчёт** — сравнение показателей («модельная оценка»), схемы AS-IS/TO-BE, решения, отчёт Markdown | ![TO-BE и отчёт](docs/screenshots/04_tobe_report.png) |
 | **4. База знаний** — 14 паттернов в ChromaDB, семантический поиск | ![База знаний](docs/screenshots/05_knowledge_base.png) |
 
+## Быстрый старт (одна команда)
+
+```powershell
+git clone https://github.com/Adilbek-S/processmind-ai.git
+cd processmind-ai
+python run.py
+```
+
+`run.py` создаёт `.venv`, ставит зависимости, создаёт `.env` из `.env.example`, строит базу знаний (если в `.env` задан `OPENAI_API_KEY`) и запускает приложение на `http://localhost:8501`. Если ключа нет, скрипт скажет об этом: впишите `OPENAI_API_KEY=...` в `.env` и запустите его снова. Дополнительные аргументы передаются Streamlit (`python run.py --server.port 8600`). Проверено с чистого клона репозитория на Python 3.14.5 / Windows 11 (создание окружения, установка, запуск, ответ приложения HTTP 200); на Linux/macOS не проверялось.
+
+Ручная установка (то же по шагам) — ниже.
+
 ## Установка
 
 Требуется Python. **Проверено на Python 3.14.5** (Windows 11); `pyproject.toml` заявляет `>=3.11`, но версии 3.11–3.13 не проверялись.
@@ -74,6 +86,8 @@ copy .env.example .env               # Linux/macOS: cp .env.example .env
 Без `OPENAI_API_KEY` приложение запускается, но распознавание, поиск и анализ завершаются понятной ошибкой: имитации ответов нет.
 
 ## Запуск
+
+Если окружение уже настроено (иначе — `python run.py`):
 
 ```powershell
 streamlit run app.py
@@ -185,6 +199,7 @@ knowledge_base/automation_patterns/        14 синтетических пат�
 evals/                          Golden Dataset, метрики, A/B, эксперимент с temperature, генератор EVALS.md
 scripts/, samples/, tests/
 docs/screenshots/               скриншоты для README
+run.py                          запуск одной командой
 ARCHITECTURE.md, EVALS.md, MODEL_CHOICE.md, DEMO.md, PRESENTATION.md, AUDIT.md
 ```
 
@@ -195,5 +210,5 @@ ARCHITECTURE.md, EVALS.md, MODEL_CHOICE.md, DEMO.md, PRESENTATION.md, AUDIT.md
 - Vision-модель может неверно читать связи и типы операций на схемах (на демо-схеме — ветвление вместо перехода на второй ряд); система предупреждает о ветвлениях на изображениях, но связи в таблице не редактируются.
 - Состояние приостановленных анализов хранится в памяти процесса (`MemorySaver`) и теряется при перезапуске приложения.
 - В A/B-эксперименте RAG не дал прироста качества (различие в пределах шума) и ухудшил результат на отрицательных примерах; подробности и оговорки — в [EVALS.md](EVALS.md).
-- Дашборд LangSmith в веб-интерфейсе не просматривался: наличие и состав трейса подтверждены запросом к API (`evals.verify_tracing`); трейсы самих оценок `evals.run_all` (30 примеров) в LangSmith не отправлялись — для этого нужен прогон с `--fresh`.
+- Дашборд LangSmith в веб-интерфейсе не просматривался: наличие и состав трейса подтверждены запросом к API (`evals.verify_tracing`); трейсы оценок отправлены прогоном `evals.run_all --fresh` в проект `processmind-ai-evals` (запросом к API найдено 96 runs `eval_case` с LLM-вызовами и 4 `eval_retrieval_case`; выборка ограничена 100 корневыми runs). В проекте `processmind-ai` также остались тестовые трейсы от прогонов `pytest` до исправления изоляции (см. AUDIT.md) — их можно удалить в веб-интерфейсе.
 - База знаний и тестовые данные синтетические; метрики, вероятно, оптимистичнее, чем были бы на реальных процессах.
