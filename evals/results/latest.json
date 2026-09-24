@@ -1,0 +1,5114 @@
+{
+ "meta": {
+  "generated_at": "2026-09-24 09:58",
+  "duration_s": 42.728904485702515,
+  "git": "c9168a7 (есть незакоммиченные изменения)",
+  "model": "gpt-4o-mini",
+  "embedding_model": "text-embedding-3-small",
+  "params": {
+   "temperature": 0.0,
+   "top_p": 1.0,
+   "max_tokens": 4096,
+   "seed": 42
+  },
+  "dataset_sha": "a1771b7166d85f17ef40428b3f46338ffd73cf78074f4e3554e6910d4f89eff5",
+  "kb_sha": "10fec9b0e5cf1f0fb8b39d6f655e3c0cb6f8971431238a5662a9642d71e7641d",
+  "skill_sha": "e52ebdfbecb44da36d4bf730546d2891d0d96cfe8d664088ad2606a6b7b14a18",
+  "versions": {
+   "python": "3.14.5",
+   "openai": "3.19.0",
+   "langgraph": "1.2.12",
+   "langsmith": "0.14.0",
+   "chromadb": "1.5.9",
+   "mcp": "2.2.0",
+   "pydantic": "2.13.5"
+  },
+  "partial": false,
+  "langsmith": {
+   "enabled": true,
+   "project": "processmind-ai",
+   "reason": null,
+   "verification": {
+    "trace_id": "01a0d2d9-8fe8-7653-9209-85df2c4f671a",
+    "root_id": "01a0d2d9-8fe8-7653-9209-85df2c4f671a",
+    "project": "processmind-ai",
+    "status": "completed",
+    "note": "проверочный выбор R1 с допущением 15 мин (только для проверки трейсов)",
+    "runs": 37,
+    "by_type": {
+     "chain": 18,
+     "tool": 4,
+     "llm": 1,
+     "embedding": 7,
+     "retriever": 7
+    },
+    "tokens": {
+     "prompt_tokens": 9288,
+     "completion_tokens": 811,
+     "total_tokens": 10099
+    },
+    "duration_s": 13.270531,
+    "error_runs": [
+     "human_approval"
+    ],
+    "names": [
+     "ChatOpenAI",
+     "RunnableCallable",
+     "calculate_metrics",
+     "generate_recommendations",
+     "generate_report",
+     "human_approval",
+     "mcp.calculate_process_metrics",
+     "mcp.simulate_automation",
+     "mcp.validate_process",
+     "openai.embeddings",
+     "process_analysis",
+     "process_analysis.resume",
+     "rag.search_automation_patterns",
+     "retrieve_automation_patterns",
+     "simulate_automation",
+     "tracing_verification",
+     "validate_process",
+     "validate_recommendations",
+     "workflow_outcome"
+    ],
+    "checks": {
+     "все 8 узлов LangGraph": true,
+     "LLM-вызов с токенами": true,
+     "RAG retrieval (retriever)": true,
+     "вызовы MCP (tool)": true,
+     "длительность корневого трейса": true
+    },
+    "ok": true
+   },
+   "verification_error": null
+  }
+ },
+ "dataset": {
+  "n": 30,
+  "by_category": {
+   "manual_detection": 3,
+   "applicability": 3,
+   "routing": 3,
+   "validation": 3,
+   "deduplication": 3,
+   "notifications": 3,
+   "other_patterns": 5,
+   "no_automation": 4,
+   "ambiguous": 3
+  },
+  "by_kind": {
+   "positive": 23,
+   "negative": 4,
+   "ambiguous": 3
+  }
+ },
+ "retrieval": {
+  "n_positive": 23,
+  "hit_at_3": 0.8260869565217391,
+  "hits": 19,
+  "mean_recall_at_3": 0.8260869565217391,
+  "pool_hit_rate": 0.8695652173913043,
+  "mean_pool_size": 5.304347826086956,
+  "latency_s": {
+   "n": 23,
+   "mean": 0.2828084391227964,
+   "median": 0.2652800000505522,
+   "p95": 0.35844189999625087,
+   "minimum": 0.23678169993218035,
+   "maximum": 0.4976389999501407,
+   "total": 6.504594099824317
+  },
+  "embedding_tokens_total": 1400,
+  "rows": [
+   {
+    "test_id": "GD-001",
+    "query": "Операция: Перепечатать заказ из письма в учётную систему. Исполнитель: Оператор склада. Выполняется вручную. Длительность: 25 мин.",
+    "top3": [
+     "AP-007",
+     "AP-012",
+     "AP-005"
+    ],
+    "scores": [
+     0.4987,
+     0.4276,
+     0.4251
+    ],
+    "pool": [
+     "AP-007",
+     "AP-008",
+     "AP-005",
+     "AP-012"
+    ],
+    "latency_s": 0.27455609990283847,
+    "embedding_tokens": 58,
+    "expected": [
+     "AP-005"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-002",
+    "query": "Операция: Собрать сводную таблицу из трёх выгрузок. Исполнитель: Аналитик. Выполняется вручную. Длительность: 180 мин.",
+    "top3": [
+     "AP-013",
+     "AP-009",
+     "AP-007"
+    ],
+    "scores": [
+     0.4475,
+     0.425,
+     0.3781
+    ],
+    "pool": [
+     "AP-012",
+     "AP-009",
+     "AP-013",
+     "AP-005",
+     "AP-007"
+    ],
+    "latency_s": 0.24811290006618947,
+    "embedding_tokens": 53,
+    "expected": [
+     "AP-012"
+    ],
+    "hit_at_3": false,
+    "recall_at_3": 0.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-003",
+    "query": "Операция: Завести карточку сотрудника в кадровой системе по анкете. Исполнитель: Специалист по кадрам. Выполняется вручную. Длительность: 30 мин.",
+    "top3": [
+     "AP-013",
+     "AP-007",
+     "AP-001"
+    ],
+    "scores": [
+     0.444,
+     0.4422,
+     0.439
+    ],
+    "pool": [
+     "AP-001",
+     "AP-007",
+     "AP-013",
+     "AP-009",
+     "AP-008",
+     "AP-004",
+     "AP-003"
+    ],
+    "latency_s": 0.2481448999606073,
+    "embedding_tokens": 67,
+    "expected": [
+     "AP-005"
+    ],
+    "hit_at_3": false,
+    "recall_at_3": 0.0,
+    "pool_hit": false
+   },
+   {
+    "test_id": "GD-004",
+    "query": "Операция: Выбрать бригаду и передать ей заявку. Исполнитель: Диспетчер. Выполняется вручную. Длительность: 15 мин.",
+    "top3": [
+     "AP-001",
+     "AP-013",
+     "AP-004"
+    ],
+    "scores": [
+     0.4699,
+     0.4197,
+     0.4007
+    ],
+    "pool": [
+     "AP-001",
+     "AP-013",
+     "AP-009",
+     "AP-007",
+     "AP-004"
+    ],
+    "latency_s": 0.2546810999047011,
+    "embedding_tokens": 55,
+    "expected": [
+     "AP-001"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-005",
+    "query": "Операция: Собрать подписи руководителей на бумажном заявлении. Исполнитель: Сотрудник. Выполняется вручную. Длительность: 240 мин.",
+    "top3": [
+     "AP-002",
+     "AP-009",
+     "AP-001"
+    ],
+    "scores": [
+     0.4493,
+     0.4182,
+     0.4109
+    ],
+    "pool": [
+     "AP-009",
+     "AP-002",
+     "AP-001",
+     "AP-013",
+     "AP-004"
+    ],
+    "latency_s": 0.25536700000520796,
+    "embedding_tokens": 60,
+    "expected": [
+     "AP-002"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-006",
+    "query": "Операция: Внести обращение в журнал и присвоить номер. Исполнитель: Оператор. Выполняется вручную. Длительность: 10 мин.",
+    "top3": [
+     "AP-008",
+     "AP-001",
+     "AP-007"
+    ],
+    "scores": [
+     0.4684,
+     0.3867,
+     0.3695
+    ],
+    "pool": [
+     "AP-008",
+     "AP-001",
+     "AP-011",
+     "AP-013",
+     "AP-004",
+     "AP-007"
+    ],
+    "latency_s": 0.35844189999625087,
+    "embedding_tokens": 53,
+    "expected": [
+     "AP-008"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-007",
+    "query": "Операция: Определить отдел по типу и продукту и переслать обращение. Исполнитель: Координатор поддержки. Выполняется вручную. Длительность: 8 мин.",
+    "top3": [
+     "AP-001",
+     "AP-009",
+     "AP-013"
+    ],
+    "scores": [
+     0.4889,
+     0.4661,
+     0.4639
+    ],
+    "pool": [
+     "AP-001",
+     "AP-008",
+     "AP-009",
+     "AP-013",
+     "AP-011",
+     "AP-004"
+    ],
+    "latency_s": 0.2652800000505522,
+    "embedding_tokens": 60,
+    "expected": [
+     "AP-001"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-008",
+    "query": "Операция: Передать заявку в нужную группу специалистов. Исполнитель: Дежурный администратор. Выполняется вручную. Длительность: 6 мин.",
+    "top3": [
+     "AP-001",
+     "AP-004",
+     "AP-003"
+    ],
+    "scores": [
+     0.5761,
+     0.4708,
+     0.4627
+    ],
+    "pool": [
+     "AP-001",
+     "AP-008",
+     "AP-003",
+     "AP-004",
+     "AP-009"
+    ],
+    "latency_s": 0.4976389999501407,
+    "embedding_tokens": 62,
+    "expected": [
+     "AP-001"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-009",
+    "query": "Операция: Найти менеджера региона в таблице и передать заказ. Соответствие «регион — менеджер» хранится в общей таблице и не меняется по ходу работы Исполнитель: Помощник отдела продаж. Выполняется вручную. Длительность: 7 мин.",
+    "top3": [
+     "AP-013",
+     "AP-009",
+     "AP-001"
+    ],
+    "scores": [
+     0.454,
+     0.3974,
+     0.3925
+    ],
+    "pool": [
+     "AP-002",
+     "AP-009",
+     "AP-013",
+     "AP-001",
+     "AP-004"
+    ],
+    "latency_s": 0.2663950000423938,
+    "embedding_tokens": 94,
+    "expected": [
+     "AP-001"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-010",
+    "query": "Операция: Проверить заполненность полей и уточнить недостающее по телефону. Исполнитель: Администратор. Выполняется вручную. Длительность: 12 мин.",
+    "top3": [
+     "AP-003",
+     "AP-009",
+     "AP-008"
+    ],
+    "scores": [
+     0.5695,
+     0.4589,
+     0.4421
+    ],
+    "pool": [
+     "AP-003",
+     "AP-009",
+     "AP-008",
+     "AP-001"
+    ],
+    "latency_s": 0.24671909993048757,
+    "embedding_tokens": 64,
+    "expected": [
+     "AP-003"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-011",
+    "query": "Операция: Вручную проверить формат дат и наличие e-mail в каждой записи. Исполнитель: Организатор. Выполняется вручную. Длительность: 90 мин.",
+    "top3": [
+     "AP-003",
+     "AP-001",
+     "AP-007"
+    ],
+    "scores": [
+     0.4763,
+     0.4703,
+     0.4502
+    ],
+    "pool": [
+     "AP-008",
+     "AP-003",
+     "AP-001",
+     "AP-007",
+     "AP-004",
+     "AP-013"
+    ],
+    "latency_s": 0.2993519000010565,
+    "embedding_tokens": 57,
+    "expected": [
+     "AP-003"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-012",
+    "query": "Операция: Проверить комплектность пакета по перечню и вернуть заявку при нехватке. Исполнитель: Менеджер. Выполняется вручную. Длительность: 25 мин.",
+    "top3": [
+     "AP-001",
+     "AP-003",
+     "AP-009"
+    ],
+    "scores": [
+     0.5441,
+     0.5309,
+     0.4916
+    ],
+    "pool": [
+     "AP-001",
+     "AP-003",
+     "AP-007",
+     "AP-009",
+     "AP-013",
+     "AP-002"
+    ],
+    "latency_s": 0.32997369999065995,
+    "embedding_tokens": 66,
+    "expected": [
+     "AP-003"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-013",
+    "query": "Операция: Ввести те же данные клиента в биллинговую систему. Исполнитель: Менеджер. Выполняется вручную. Длительность: 10 мин.",
+    "top3": [
+     "AP-005",
+     "AP-006",
+     "AP-007"
+    ],
+    "scores": [
+     0.5065,
+     0.459,
+     0.4278
+    ],
+    "pool": [
+     "AP-005",
+     "AP-006",
+     "AP-003",
+     "AP-007",
+     "AP-008",
+     "AP-013"
+    ],
+    "latency_s": 0.267913099960424,
+    "embedding_tokens": 56,
+    "expected": [
+     "AP-005"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-014",
+    "query": "Операция: Повторно внести реквизиты в систему расчёта отпусков. Исполнитель: Кадровик. Выполняется вручную. Длительность: 12 мин.",
+    "top3": [
+     "AP-009",
+     "AP-007",
+     "AP-005"
+    ],
+    "scores": [
+     0.4836,
+     0.481,
+     0.4679
+    ],
+    "pool": [
+     "AP-005",
+     "AP-007",
+     "AP-009",
+     "AP-012",
+     "AP-006",
+     "AP-013"
+    ],
+    "latency_s": 0.23678169993218035,
+    "embedding_tokens": 59,
+    "expected": [
+     "AP-005"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-015",
+    "query": "Операция: Скопировать параметры заказа в накладную и письмо поставщику. Исполнитель: Менеджер по закупкам. Выполняется вручную. Длительность: 20 мин.",
+    "top3": [
+     "AP-009",
+     "AP-001",
+     "AP-013"
+    ],
+    "scores": [
+     0.4349,
+     0.4313,
+     0.4167
+    ],
+    "pool": [
+     "AP-001",
+     "AP-009",
+     "AP-013",
+     "AP-002",
+     "AP-008"
+    ],
+    "latency_s": 0.2571778000565246,
+    "embedding_tokens": 66,
+    "expected": [
+     "AP-005"
+    ],
+    "hit_at_3": false,
+    "recall_at_3": 0.0,
+    "pool_hit": false
+   },
+   {
+    "test_id": "GD-016",
+    "query": "Операция: Сообщить клиенту о смене статуса по телефону. Исполнитель: Специалист. Выполняется вручную. Длительность: 10 мин.",
+    "top3": [
+     "AP-004",
+     "AP-006",
+     "AP-003"
+    ],
+    "scores": [
+     0.5169,
+     0.3975,
+     0.3908
+    ],
+    "pool": [
+     "AP-004",
+     "AP-008",
+     "AP-001",
+     "AP-003",
+     "AP-006"
+    ],
+    "latency_s": 0.2564496999839321,
+    "embedding_tokens": 57,
+    "expected": [
+     "AP-004"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-017",
+    "query": "Операция: Проверять список на новые задачи. Исполнитель: Исполнитель. Выполняется вручную. Длительность: 20 мин.",
+    "top3": [
+     "AP-004",
+     "AP-013",
+     "AP-009"
+    ],
+    "scores": [
+     0.541,
+     0.5332,
+     0.5069
+    ],
+    "pool": [
+     "AP-013",
+     "AP-004",
+     "AP-009",
+     "AP-001"
+    ],
+    "latency_s": 0.2738803999964148,
+    "embedding_tokens": 45,
+    "expected": [
+     "AP-004"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-018",
+    "query": "Операция: Напоминать согласующему письмами о необходимости решения. Исполнитель: Ответственный. Выполняется вручную. Длительность: 15 мин.",
+    "top3": [
+     "AP-009",
+     "AP-002",
+     "AP-001"
+    ],
+    "scores": [
+     0.4965,
+     0.476,
+     0.4534
+    ],
+    "pool": [
+     "AP-002",
+     "AP-009",
+     "AP-001",
+     "AP-007",
+     "AP-010"
+    ],
+    "latency_s": 0.3264337000437081,
+    "embedding_tokens": 61,
+    "expected": [
+     "AP-004"
+    ],
+    "hit_at_3": false,
+    "recall_at_3": 0.0,
+    "pool_hit": false
+   },
+   {
+    "test_id": "GD-019",
+    "query": "Операция: Перепечатать реквизиты и суммы из скана в учётную систему. Исполнитель: Оператор. Выполняется вручную. Длительность: 15 мин.",
+    "top3": [
+     "AP-007",
+     "AP-012",
+     "AP-005"
+    ],
+    "scores": [
+     0.552,
+     0.4632,
+     0.4269
+    ],
+    "pool": [
+     "AP-007",
+     "AP-012",
+     "AP-005",
+     "AP-009",
+     "AP-001"
+    ],
+    "latency_s": 0.2870450000045821,
+    "embedding_tokens": 64,
+    "expected": [
+     "AP-007"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-020",
+    "query": "Операция: Обойти согласующих с бумажным договором и собрать подписи. Исполнитель: Помощник юриста. Выполняется вручную. Длительность: 300 мин.",
+    "top3": [
+     "AP-002",
+     "AP-007",
+     "AP-010"
+    ],
+    "scores": [
+     0.5293,
+     0.4334,
+     0.4282
+    ],
+    "pool": [
+     "AP-002",
+     "AP-007",
+     "AP-010",
+     "AP-009",
+     "AP-001",
+     "AP-013"
+    ],
+    "latency_s": 0.25586849998217076,
+    "embedding_tokens": 68,
+    "expected": [
+     "AP-002"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-021",
+    "query": "Операция: Просматривать таблицу и искать просроченные поручения. Исполнитель: Секретарь. Выполняется вручную. Длительность: 45 мин.",
+    "top3": [
+     "AP-009",
+     "AP-013",
+     "AP-007"
+    ],
+    "scores": [
+     0.4985,
+     0.4219,
+     0.4062
+    ],
+    "pool": [
+     "AP-009",
+     "AP-013",
+     "AP-007",
+     "AP-001",
+     "AP-002"
+    ],
+    "latency_s": 0.2592376999091357,
+    "embedding_tokens": 59,
+    "expected": [
+     "AP-009"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-022",
+    "query": "Операция: Вручную сравнить записи двух систем и найти расхождения. Исполнитель: Специалист. Выполняется вручную. Длительность: 300 мин.",
+    "top3": [
+     "AP-014",
+     "AP-006",
+     "AP-007"
+    ],
+    "scores": [
+     0.6313,
+     0.4595,
+     0.4279
+    ],
+    "pool": [
+     "AP-014",
+     "AP-007",
+     "AP-012",
+     "AP-006",
+     "AP-013",
+     "AP-009"
+    ],
+    "latency_s": 0.25643620011396706,
+    "embedding_tokens": 60,
+    "expected": [
+     "AP-014"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   },
+   {
+    "test_id": "GD-023",
+    "query": "Операция: Скопировать старый документ и заменить данные вручную. Исполнитель: Менеджер. Выполняется вручную. Длительность: 35 мин.",
+    "top3": [
+     "AP-010",
+     "AP-007",
+     "AP-005"
+    ],
+    "scores": [
+     0.5403,
+     0.5342,
+     0.4821
+    ],
+    "pool": [
+     "AP-010",
+     "AP-007",
+     "AP-002",
+     "AP-005",
+     "AP-001"
+    ],
+    "latency_s": 0.2827077000401914,
+    "embedding_tokens": 56,
+    "expected": [
+     "AP-010"
+    ],
+    "hit_at_3": true,
+    "recall_at_3": 1.0,
+    "pool_hit": true
+   }
+  ]
+ },
+ "ab": {
+  "results": {
+   "A": [
+    {
+     "test_id": "GD-001",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-005",
+       "problem": "Операция перепечатки заказа из письма в учётную систему выполняется вручную, что приводит к повторному вводу одного и того же заказа и опечаткам при переносе данных.",
+       "solution": "Рекомендуется автоматизировать процесс переноса данных из письма в учётную систему с помощью интеграции, чтобы исключить ручной ввод.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6375,
+      "completion_tokens": 296,
+      "total_tokens": 6671,
+      "latency_s": 6.091676599928178,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-002",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-014",
+       "problem": "Операция по сбору сводной таблицы выполняется вручную, что приводит к ручному копированию между файлами и ошибкам при сведении цифр.",
+       "solution": "Автоматизировать процесс сбора сводной таблицы с помощью скрипта, который будет объединять данные из трёх выгрузок в одну таблицу без ручного вмешательства.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-001",
+       "problem": "Операция по отправке отчёта руководителю выполняется вручную, что может быть неэффективно.",
+       "solution": "Автоматизировать отправку отчёта с помощью системы, которая будет автоматически рассылать готовый отчёт руководителю.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6409,
+      "completion_tokens": 434,
+      "total_tokens": 6843,
+      "latency_s": 5.942642400041223,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-003",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-005",
+       "problem": "Данные анкеты набираются вручную, что приводит к дублированию ввода информации в систему пропусков. Это создает риск ошибок и увеличивает время обработки.",
+       "solution": "Автоматизировать процесс ввода данных анкеты с помощью интеграции кадровой системы и системы пропусков, чтобы данные вводились один раз и использовались в обеих системах.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6463,
+      "completion_tokens": 287,
+      "total_tokens": 6750,
+      "latency_s": 2.846197500010021,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-004",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-001",
+       "problem": "Диспетчер выбирает бригаду вручную, что приводит к задержкам в обработке заявок и ошибкам в их распределении.",
+       "solution": "Рекомендуется внедрить систему автоматического распределения заявок на основе доступности бригад и их специализации.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-009",
+       "problem": "Ремонт выполняется вручную, что занимает много времени и может быть подвержено ошибкам.",
+       "solution": "Рекомендуется рассмотреть возможность внедрения системы управления ремонтом, которая позволит отслеживать статус выполнения работ и автоматизировать некоторые процессы.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6419,
+      "completion_tokens": 406,
+      "total_tokens": 6825,
+      "latency_s": 4.965306399972178,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-005",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Документ ходит по кабинетам, что приводит к задержкам в согласовании. Также отсутствует информация о текущем этапе согласования, что усложняет процесс.",
+       "solution": "Рекомендуется внедрить электронный документооборот для сбора подписей руководителей, что позволит отслеживать статус согласования в реальном времени.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-003",
+       "problem": "Операция выполняется вручную, что может привести к ошибкам и задержкам.",
+       "solution": "Рекомендуется внедрить форму для электронного заявления на отпуск, что упростит процесс подачи заявки.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-009",
+       "problem": "Операция выполняется вручную, что может привести к ошибкам и задержкам.",
+       "solution": "Рекомендуется автоматизировать внесение отпуска в график с помощью системы управления кадрами.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6433,
+      "completion_tokens": 551,
+      "total_tokens": 6984,
+      "latency_s": 5.034166200086474,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-006",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-008",
+       "problem": "Обращения регистрируются с опозданием и часть обращений не попадает в журнал, что указывает на недостатки в процессе регистрации.",
+       "solution": "Рекомендуется автоматизировать внесение обращений в журнал с помощью системы, которая будет автоматически регистрировать обращения и присваивать номера.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-008",
+       "problem": "Операция выполняется вручную, что может приводить к задержкам в приёме обращений.",
+       "solution": "Рекомендуется внедрить автоматизированную систему приёма обращений, которая будет обрабатывать обращения по всем каналам.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-003",
+       "problem": "Операция выполняется вручную и занимает 40 минут, что делает её долгой и потенциально уязвимой для ошибок.",
+       "solution": "Рекомендуется рассмотреть возможность автоматизации ответов на часто задаваемые вопросы с помощью чат-бота или системы автоматизированных ответов.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6437,
+      "completion_tokens": 599,
+      "total_tokens": 7036,
+      "latency_s": 7.536597399972379,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-007",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-001",
+       "problem": "Координатор поддержки является узким местом в процессе, так как он вручную определяет отдел и пересылает обращения, что приводит к задержкам и повторным пересылкам.",
+       "solution": "Автоматизировать процесс определения отдела по типу и продукту с помощью системы, которая будет анализировать входящие обращения и автоматически направлять их в нужный отдел.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-008",
+       "problem": "Ответ клиенту выполняется вручную, что занимает значительное время (30 минут) и может привести к задержкам в обслуживании.",
+       "solution": "Рассмотреть возможность автоматизации ответов на типовые обращения с помощью чат-бота или системы автоматизированных ответов.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6396,
+      "completion_tokens": 452,
+      "total_tokens": 6848,
+      "latency_s": 4.366394000011496,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-008",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-001",
+       "problem": "Передача заявки в нужную группу специалистов выполняется вручную, что приводит к частым ошибочным передачам и возвратам заявок между группами.",
+       "solution": "Рекомендуется автоматизировать процесс передачи заявок с помощью системы, которая будет направлять заявки в соответствующие группы специалистов на основе заранее заданных критериев.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-003",
+       "problem": "Решение проблемы выполняется вручную и занимает длительное время (45 минут), что может замедлять общий процесс обработки заявок.",
+       "solution": "Рекомендуется рассмотреть возможность автоматизации части процесса решения проблем, например, с помощью системы, которая будет предлагать решения на основе предыдущего опыта или базы знаний.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6389,
+      "completion_tokens": 425,
+      "total_tokens": 6814,
+      "latency_s": 4.139492799993604,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-009",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-001",
+       "problem": "Помощник вручную ищет менеджера для каждого заказа, что увеличивает время обработки и вероятность ошибок.",
+       "solution": "Автоматизировать поиск менеджера по региону с помощью системы, которая будет сопоставлять заказы с менеджерами на основе заранее заданных правил.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-001",
+       "problem": "Операция выполняется вручную, что увеличивает время обработки заказов.",
+       "solution": "Автоматизировать процесс приема заказов с помощью онлайн-формы, которая будет сразу фиксировать заказы в системе.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Операция выполняется вручную и занимает значительное время (40 минут).",
+       "solution": "Внедрить систему для автоматизации согласования условий с клиентом, например, через чат-бота или автоматизированные письма.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6419,
+      "completion_tokens": 523,
+      "total_tokens": 6942,
+      "latency_s": 4.887471999973059,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-010",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-003",
+       "problem": "В процессе проверки заполненности полей часто отсутствуют время или число участников, что требует дополнительных звонков заявителю.",
+       "solution": "Автоматизировать процесс проверки заполненности полей с помощью системы, которая будет отправлять уведомления заявителю о недостающей информации, а также позволит ему самостоятельно внести изменения в заявку.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-003",
+       "problem": "Подтверждение брони выполняется вручную, что увеличивает общую длительность процесса.",
+       "solution": "Внедрить автоматизированную систему подтверждения брони, которая будет отправлять уведомления о подтверждении заявки без участия администратора.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6399,
+      "completion_tokens": 415,
+      "total_tokens": 6814,
+      "latency_s": 4.154463900020346,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-011",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-003",
+       "problem": "Операция проверки формата дат и наличия e-mail выполняется вручную, что приводит к ошибкам, которые находят слишком поздно.",
+       "solution": "Автоматизировать проверку формата дат и наличие e-mail с помощью системы, которая будет проверять данные сразу после регистрации.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-008",
+       "problem": "Операция рассылки приглашений выполняется вручную, что может занимать много времени.",
+       "solution": "Автоматизировать процесс рассылки приглашений, используя систему, которая будет отправлять приглашения автоматически на основе зарегистрированных данных.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6365,
+      "completion_tokens": 376,
+      "total_tokens": 6741,
+      "latency_s": 3.891044499934651,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-012",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-003",
+       "problem": "Проверка комплектности пакета документов осуществляется вручную, что приводит к ошибкам из-за проверки по памяти и возврату заявок на доработку.",
+       "solution": "Рекомендуется автоматизировать проверку комплектности пакета документов с помощью системы, которая будет сравнивать поданные документы с заранее установленным перечнем обязательных документов.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-007",
+       "problem": "Операция по принятию пакета документов выполняется вручную, что может привести к задержкам в процессе.",
+       "solution": "Рекомендуется внедрить систему для автоматизированного приёма документов, которая позволит клиентам загружать документы через портал.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Передача пакета на рассмотрение осуществляется вручную, что может замедлять процесс.",
+       "solution": "Рекомендуется автоматизировать процесс передачи пакета документов на рассмотрение с помощью системы, которая будет автоматически отправлять документы на нужный этап.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6433,
+      "completion_tokens": 561,
+      "total_tokens": 6994,
+      "latency_s": 5.787249999935739,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-013",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-005",
+       "problem": "Операция выполняется вручную, и одни и те же данные вводятся трижды, что приводит к расхождениям в копиях.",
+       "solution": "Рекомендуется автоматизировать ввод данных клиента в биллинговую систему, интегрировав её с CRM, чтобы данные передавались автоматически.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-005",
+       "problem": "Операция выполняется вручную, требуется ручной перенос данных из CRM.",
+       "solution": "Рекомендуется автоматизировать добавление клиента в таблицу отдела, интегрировав её с CRM для автоматического обновления данных.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6468,
+      "completion_tokens": 388,
+      "total_tokens": 6856,
+      "latency_s": 4.6695526000112295,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-014",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-005",
+       "problem": "Операция выполняется вручную и требует повторного ввода одних и тех же реквизитов, что приводит к избыточной работе и возможным ошибкам.",
+       "solution": "Рекомендуется автоматизировать процесс передачи реквизитов сотрудника из кадровой системы в систему расчёта отпусков, чтобы избежать двойного ввода.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-005",
+       "problem": "Операция выполняется вручную и требует повторного ввода одних и тех же реквизитов, что приводит к избыточной работе и возможным ошибкам.",
+       "solution": "Рекомендуется автоматизировать процесс передачи реквизитов сотрудника из кадровой системы в систему пропусков, чтобы избежать двойного ввода.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6459,
+      "completion_tokens": 477,
+      "total_tokens": 6936,
+      "latency_s": 4.446143799927086,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-015",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-005",
+       "problem": "Параметры заказа переписываются вручную из формы в два документа, что приводит к опечаткам в накладной и увеличивает время обработки заказа.",
+       "solution": "Автоматизировать процесс копирования параметров заказа, чтобы данные автоматически переносились из формы в накладную и письмо поставщику.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-001",
+       "problem": "Отправка письма поставщику выполняется вручную, что увеличивает время обработки заказа.",
+       "solution": "Автоматизировать отправку письма поставщику, чтобы оно отправлялось автоматически после заполнения накладной.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6412,
+      "completion_tokens": 494,
+      "total_tokens": 6906,
+      "latency_s": 6.454592699999921,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-016",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-003",
+       "problem": "Операция выполняется вручную, что приводит к значительным временным затратам (60 минут).",
+       "solution": "Автоматизировать обработку заявок и изменение их статуса с помощью системы, которая будет автоматически обновлять статус заявки и уведомлять клиента.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-004",
+       "problem": "Операция выполняется вручную, что приводит к тому, что клиенты сами звонят и спрашивают о статусе, а также специалистам некогда сообщать о каждом статусе вручную.",
+       "solution": "Внедрить автоматизированную систему уведомлений, которая будет информировать клиентов о смене статуса заявки через SMS или email.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6409,
+      "completion_tokens": 443,
+      "total_tokens": 6852,
+      "latency_s": 5.3238036999246106,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-017",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-004",
+       "problem": "Исполнители узнают о назначении задач случайно и замечают новые задачи с опозданием, что приводит к задержкам в работе.",
+       "solution": "Рекомендуется внедрить автоматизированную систему уведомлений, которая будет оповещать исполнителей о назначении новых задач в реальном времени.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-013",
+       "problem": "Операция назначения исполнителя на задачу выполняется вручную, что может занимать время и увеличивать вероятность ошибок.",
+       "solution": "Рекомендуется автоматизировать процесс назначения исполнителей с помощью системы, которая будет автоматически распределять задачи на основе загруженности и квалификации исполнителей.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6432,
+      "completion_tokens": 442,
+      "total_tokens": 6874,
+      "latency_s": 4.7695707000093535,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-018",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Согласующий не знает, что документ ждёт его решения, и напоминания пишутся вручную, что увеличивает время на согласование.",
+       "solution": "Автоматизировать процесс отправки напоминаний согласующему с помощью системы уведомлений, которая будет отправлять автоматические письма о необходимости решения.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Операция отправки документа согласующему выполняется вручную, что увеличивает время на согласование.",
+       "solution": "Автоматизировать отправку документа согласующему через электронную почту или систему документооборота.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Операция принятия решения по документу выполняется вручную, что увеличивает время на согласование.",
+       "solution": "Рассмотреть возможность автоматизации процесса принятия решения с помощью системы, которая будет предлагать согласующему варианты решения на основе заранее заданных критериев.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6428,
+      "completion_tokens": 549,
+      "total_tokens": 6977,
+      "latency_s": 5.634206000017002,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-019",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [],
+     "recs": [],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6435,
+      "completion_tokens": 70,
+      "total_tokens": 6505,
+      "latency_s": 1.3305890000192448,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-020",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Операция по сбору подписей выполняется вручную и имеет проблемы с версиями договора и неясностью местоположения документа.",
+       "solution": "Автоматизировать процесс согласования и подписания договора с помощью системы электронного документооборота, которая позволит отслеживать версии документа и статус подписания.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-010",
+       "problem": "Операция по подготовке проекта договора выполняется вручную и занимает много времени.",
+       "solution": "Внедрить шаблоны договоров и автоматизированные инструменты для подготовки проектов, что позволит юристу быстрее создавать документы.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Операция подписания договора выполняется вручную и занимает время.",
+       "solution": "Внедрить электронную подпись для ускорения процесса подписания договора.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6416,
+      "completion_tokens": 522,
+      "total_tokens": 6938,
+      "latency_s": 5.339790300000459,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-021",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-009",
+       "problem": "Секретарь просматривает таблицу и ищет просроченные поручения вручную, что приводит к тому, что о просрочке узнают постфактум и нет предупреждения о приближении срока.",
+       "solution": "Рекомендуется автоматизировать процесс уведомления о приближении сроков поручений с помощью системы, которая будет отслеживать сроки и отправлять уведомления секретарю.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-009",
+       "problem": "Секретарь вручную фиксирует поручение и срок в таблице, что занимает время и может привести к ошибкам.",
+       "solution": "Рекомендуется автоматизировать процесс фиксации поручений с помощью системы, которая будет автоматически записывать поручения и сроки.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6432,
+      "completion_tokens": 418,
+      "total_tokens": 6850,
+      "latency_s": 4.343050500028767,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-022",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-014",
+       "problem": "Операция по сравнению записей выполняется вручную, что приводит к выборочной и поздней сверке, а также к длительному поиску причин расхождений.",
+       "solution": "Рекомендуется автоматизировать процесс сравнения записей с использованием программного обеспечения для анализа данных, которое сможет быстро выявлять расхождения между системами.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-006",
+       "problem": "Операция по выгрузке записей выполняется вручную, что увеличивает общую длительность процесса.",
+       "solution": "Рекомендуется автоматизировать выгрузку данных из систем с помощью интеграционных инструментов, которые могут автоматически извлекать данные без участия человека.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": null,
+       "resolved_pattern": "AP-014",
+       "problem": "Операция по исправлению расхождений выполняется вручную, что также увеличивает общую длительность процесса.",
+       "solution": "Рекомендуется внедрить автоматизированные инструменты для исправления расхождений, которые могут предлагать решения на основе выявленных несоответствий.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6433,
+      "completion_tokens": 589,
+      "total_tokens": 7022,
+      "latency_s": 6.051944100065157,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-023",
+     "config": "A",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-010",
+       "problem": "Операция по копированию старого документа и замене данных выполняется вручную, что приводит к ошибкам, таким как оставшиеся чужие данные и различия в формулировках.",
+       "solution": "Автоматизировать процесс копирования документа с помощью системы, которая будет извлекать данные из шаблона и заполнять их автоматически, минимизируя ручной ввод.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-007",
+       "problem": "Операция по поиску похожего документа в архиве выполняется вручную, что может занимать значительное время.",
+       "solution": "Внедрить систему поиска документов по ключевым словам или метаданным, чтобы ускорить процесс нахождения нужного документа.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6424,
+      "completion_tokens": 438,
+      "total_tokens": 6862,
+      "latency_s": 4.815175599884242,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-024",
+     "config": "A",
+     "kind": "negative",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [],
+     "recs": [],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6238,
+      "completion_tokens": 34,
+      "total_tokens": 6272,
+      "latency_s": 0.8902317000320181,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-025",
+     "config": "A",
+     "kind": "negative",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [],
+     "recs": [],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6085,
+      "completion_tokens": 69,
+      "total_tokens": 6154,
+      "latency_s": 3.079456100007519,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-026",
+     "config": "A",
+     "kind": "negative",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [],
+     "recs": [],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 5947,
+      "completion_tokens": 66,
+      "total_tokens": 6013,
+      "latency_s": 1.5580792999826372,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-027",
+     "config": "A",
+     "kind": "negative",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": null
+      },
+      {
+       "step_id": "s2",
+       "pattern_id": null
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Операция \"Провести переговоры о цене с поставщиком\" выполняется вручную, что может привести к задержкам и ошибкам в процессе закупки.",
+       "solution": "Рекомендуется автоматизировать процесс переговоров с использованием специализированного программного обеспечения для управления закупками, которое позволит вести переговоры в электронном виде и фиксировать все условия и предложения.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      },
+      {
+       "step_id": "s2",
+       "pattern_id": null,
+       "resolved_pattern": "AP-002",
+       "problem": "Операция \"Оценить надёжность поставщика по личной встрече\" выполняется вручную, что может быть времязатратным и неэффективным.",
+       "solution": "Рекомендуется использовать онлайн-платформы для оценки поставщиков, которые могут включать в себя отзывы, рейтинги и другие данные, доступные в электронном виде.",
+       "rationale_present": true,
+       "conditions_analyzed": false
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6100,
+      "completion_tokens": 482,
+      "total_tokens": 6582,
+      "latency_s": 5.436695000040345,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-028",
+     "config": "A",
+     "kind": "ambiguous",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [],
+     "recs": [],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 5968,
+      "completion_tokens": 33,
+      "total_tokens": 6001,
+      "latency_s": 0.96312339999713,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-029",
+     "config": "A",
+     "kind": "ambiguous",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [],
+     "recs": [],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 5987,
+      "completion_tokens": 38,
+      "total_tokens": 6025,
+      "latency_s": 1.0633106000022963,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-030",
+     "config": "A",
+     "kind": "ambiguous",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [],
+     "recs": [],
+     "rejected_reasons": [],
+     "retrieved_pool": [],
+     "retrieval_latency_s": 0.0,
+     "embedding_tokens": 0,
+     "llm": {
+      "prompt_tokens": 6014,
+      "completion_tokens": 38,
+      "total_tokens": 6052,
+      "latency_s": 1.3284891999792308,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_5a9d97c6db"
+     }
+    }
+   ],
+   "B": [
+    {
+     "test_id": "GD-001",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-007"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-007",
+       "resolved_pattern": "AP-007",
+       "problem": "Операция перепечатки заказа из письма в учётную систему выполняется вручную, что приводит к повторному вводу одного и того же заказа и опечаткам при переносе данных.",
+       "solution": "Рекомендуется внедрить систему распознавания текста (OCR) для автоматической обработки заказов, чтобы извлекать ключевые поля из писем и передавать их в учётную систему без повторного ввода.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-007",
+      "AP-008",
+      "AP-005",
+      "AP-012"
+     ],
+     "retrieval_latency_s": 1.0566924000158906,
+     "embedding_tokens": 144,
+     "llm": {
+      "prompt_tokens": 7971,
+      "completion_tokens": 382,
+      "total_tokens": 8353,
+      "latency_s": 3.3827421999303624,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-002",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-012"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-012"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-012",
+       "resolved_pattern": "AP-012",
+       "problem": "Операция по сбору сводной таблицы выполняется вручную, что приводит к ручному копированию между файлами и ошибкам при сведении цифр.",
+       "solution": "Автоматизировать сбор сводной таблицы, используя автоматическое формирование отчётности, чтобы исключить ручное копирование и снизить вероятность ошибок.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-012",
+       "resolved_pattern": "AP-012",
+       "problem": "Операция по отправке отчёта руководителю выполняется вручную, что может привести к задержкам в доставке отчёта.",
+       "solution": "Автоматизировать отправку отчёта руководителю, используя автоматическое формирование отчётности, чтобы обеспечить своевременную доставку отчёта.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-012",
+      "AP-009",
+      "AP-013",
+      "AP-005",
+      "AP-007"
+     ],
+     "retrieval_latency_s": 0.9920604999642819,
+     "embedding_tokens": 199,
+     "llm": {
+      "prompt_tokens": 8367,
+      "completion_tokens": 640,
+      "total_tokens": 9007,
+      "latency_s": 6.747402900015004,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-003",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-007"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-008"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-007",
+       "resolved_pattern": "AP-003",
+       "problem": "Данные анкеты набираются вручную, что приводит к ошибкам и увеличивает время обработки.",
+       "solution": "Внедрить систему OCR для автоматического распознавания и ввода данных из анкеты в кадровую систему.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-008",
+       "resolved_pattern": "AP-008",
+       "problem": "Выдача пропуска в офис выполняется вручную, что может привести к задержкам и ошибкам.",
+       "solution": "Внедрить автоматическую регистрацию обращений для выдачи пропусков, чтобы данные о пропусках фиксировались сразу в системе.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-001",
+      "AP-007",
+      "AP-013",
+      "AP-009",
+      "AP-008",
+      "AP-004",
+      "AP-003"
+     ],
+     "retrieval_latency_s": 1.3466194999637082,
+     "embedding_tokens": 304,
+     "llm": {
+      "prompt_tokens": 9264,
+      "completion_tokens": 567,
+      "total_tokens": 9831,
+      "latency_s": 6.502614099998027,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-004",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-009"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-001",
+       "problem": "Заявки ждут, пока диспетчер освободится, и часть заявок уходит не той бригаде, что приводит к задержкам и ошибкам в распределении.",
+       "solution": "Автоматизировать маршрутизацию заявок с помощью системы, которая будет автоматически назначать заявки на бригады на основе заранее заданных правил.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-009",
+       "resolved_pattern": "AP-009",
+       "problem": "Операция выполняется вручную, что приводит к длительному времени выполнения ремонта и отсутствию контроля сроков.",
+       "solution": "Внедрить автоматизированную систему контроля сроков выполнения ремонта, которая будет отслеживать сроки и уведомлять о приближении к ним.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-001",
+      "AP-013",
+      "AP-009",
+      "AP-007",
+      "AP-004"
+     ],
+     "retrieval_latency_s": 1.2500685000559315,
+     "embedding_tokens": 193,
+     "llm": {
+      "prompt_tokens": 8399,
+      "completion_tokens": 603,
+      "total_tokens": 9002,
+      "latency_s": 10.783345900010318,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-005",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-002"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-004"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-001"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "Документ ходит по кабинетам, что приводит к задержкам в согласовании и отсутствию информации о текущем этапе согласования.",
+       "solution": "Внедрить электронное согласование, чтобы документ автоматически передавался очередному согласующему, а статус согласования фиксировался в системе.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-004",
+       "resolved_pattern": "AP-004",
+       "problem": "Операция написания заявления на отпуск выполняется вручную, что требует времени и может быть упущено из виду.",
+       "solution": "Внедрить автоматические уведомления о необходимости написания заявления на отпуск, чтобы сотрудники получали напоминания.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-001",
+       "problem": "Операция внесения отпуска в график выполняется вручную, что может привести к ошибкам и задержкам.",
+       "solution": "Внедрить автоматическую маршрутизацию заявок на внесение отпуска в график, чтобы заявки автоматически направлялись специалисту по кадрам.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-009",
+      "AP-002",
+      "AP-001",
+      "AP-013",
+      "AP-004"
+     ],
+     "retrieval_latency_s": 1.2618296999717131,
+     "embedding_tokens": 265,
+     "llm": {
+      "prompt_tokens": 8444,
+      "completion_tokens": 660,
+      "total_tokens": 9104,
+      "latency_s": 8.052580300020054,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-006",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-008"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-008"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-008",
+       "resolved_pattern": "AP-008",
+       "problem": "Обращения регистрируются с опозданием и часть обращений не попадает в журнал, что указывает на недостатки в ручной регистрации.",
+       "solution": "Настроить автоматическую регистрацию обращений, чтобы система сама вносила их в журнал и присваивала номера, минимизируя ручной ввод.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-008",
+       "resolved_pattern": "AP-008",
+       "problem": "Операция выполняется вручную, что может приводить к задержкам в регистрации обращений.",
+       "solution": "Автоматизировать процесс приёма обращений, чтобы система сама фиксировала поступление обращения и уведомляла оператора.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-008",
+      "AP-001",
+      "AP-011",
+      "AP-013",
+      "AP-004",
+      "AP-007"
+     ],
+     "retrieval_latency_s": 1.4610128999920562,
+     "embedding_tokens": 241,
+     "llm": {
+      "prompt_tokens": 8855,
+      "completion_tokens": 532,
+      "total_tokens": 9387,
+      "latency_s": 6.444469399983063,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-007",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-001",
+       "problem": "Координатор поддержки является узким местом в процессе, так как вручную определяет, кому переслать обращения. Это приводит к задержкам и ошибкам в передаче обращений.",
+       "solution": "Автоматизировать процесс определения отдела по типу и продукту и пересылки обращения с помощью автоматической маршрутизации заявок. Система будет автоматически назначать обращения соответствующим исполнителям на основе заранее заданных правил.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-001",
+      "AP-008",
+      "AP-009",
+      "AP-013",
+      "AP-011",
+      "AP-004"
+     ],
+     "retrieval_latency_s": 1.0823907000012696,
+     "embedding_tokens": 194,
+     "llm": {
+      "prompt_tokens": 8785,
+      "completion_tokens": 427,
+      "total_tokens": 9212,
+      "latency_s": 4.96531550004147,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-008",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-009"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-001",
+       "problem": "Операция передачи заявки выполняется вручную, что приводит к частым ошибочным передачам и возвратам заявок между группами.",
+       "solution": "Автоматизировать процесс передачи заявок с помощью системы маршрутизации, которая будет автоматически назначать заявки нужной группе специалистов на основе заранее определённых правил.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-009",
+       "resolved_pattern": "AP-009",
+       "problem": "Операция решения проблемы выполняется вручную и занимает длительное время (45 минут), что может привести к задержкам в обслуживании заявок.",
+       "solution": "Внедрить автоматизированную систему контроля сроков выполнения задач, которая будет отслеживать сроки и уведомлять исполнителей о приближающихся сроках.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-001",
+      "AP-008",
+      "AP-003",
+      "AP-004",
+      "AP-009"
+     ],
+     "retrieval_latency_s": 0.932709899963811,
+     "embedding_tokens": 196,
+     "llm": {
+      "prompt_tokens": 8409,
+      "completion_tokens": 637,
+      "total_tokens": 9046,
+      "latency_s": 6.157882700092159,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-009",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-001",
+       "problem": "Помощник вручную ищет менеджера для каждого заказа, что увеличивает время обработки и вероятность ошибок.",
+       "solution": "Автоматизировать поиск менеджера по региону, используя систему, которая будет сопоставлять заказы с менеджерами на основе таблицы соответствия.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "Согласование условий с клиентом занимает много времени (40 минут), что может задерживать процесс обработки заказов.",
+       "solution": "Внедрить электронное согласование условий с клиентом через систему документооборота, где менеджер сможет быстро согласовывать условия и фиксировать результаты.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-002",
+      "AP-009",
+      "AP-013",
+      "AP-001",
+      "AP-004"
+     ],
+     "retrieval_latency_s": 1.2460240999935195,
+     "embedding_tokens": 285,
+     "llm": {
+      "prompt_tokens": 8430,
+      "completion_tokens": 530,
+      "total_tokens": 8960,
+      "latency_s": 5.269395499955863,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-010",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-003"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-001"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-003",
+       "resolved_pattern": "AP-003",
+       "problem": "В заявках часто нет времени или числа участников, что требует уточнения по телефону. Операция выполняется вручную и занимает 12 минут.",
+       "solution": "Внедрить автоматическую проверку обязательных полей в форме бронирования, чтобы заявка не принималась, пока все обязательные поля не будут заполнены корректно.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-003",
+       "problem": "Подтверждение брони выполняется вручную и занимает 3 минуты, что также является ручной операцией.",
+       "solution": "Автоматизировать процесс подтверждения брони, чтобы система автоматически отправляла подтверждение заявителю после успешной проверки заявки.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-003",
+      "AP-009",
+      "AP-008",
+      "AP-001"
+     ],
+     "retrieval_latency_s": 0.9147263000486419,
+     "embedding_tokens": 214,
+     "llm": {
+      "prompt_tokens": 8027,
+      "completion_tokens": 514,
+      "total_tokens": 8541,
+      "latency_s": 4.595319300075062,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-011",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-003"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-004"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-003",
+       "resolved_pattern": "AP-003",
+       "problem": "Операция проверки формата дат и наличия e-mail выполняется вручную, что приводит к ошибкам в датах и пропущенным e-mail, которые находят слишком поздно.",
+       "solution": "Внедрить автоматическую проверку обязательных полей и форматов данных при регистрации участников, чтобы система сразу выявляла ошибки и недостающие данные.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [
+      "не проверены условия применимости паттерна (нет ни подтверждённых, ни непроверенных условий)"
+     ],
+     "retrieved_pool": [
+      "AP-008",
+      "AP-003",
+      "AP-001",
+      "AP-007",
+      "AP-004",
+      "AP-013"
+     ],
+     "retrieval_latency_s": 1.0412619999842718,
+     "embedding_tokens": 201,
+     "llm": {
+      "prompt_tokens": 8792,
+      "completion_tokens": 494,
+      "total_tokens": 9286,
+      "latency_s": 4.919472699984908,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-012",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-003"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-007"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-003",
+       "resolved_pattern": "AP-003",
+       "problem": "Перечень обязательных документов проверяется по памяти, что приводит к ошибкам и возвратам заявок на доработку.",
+       "solution": "Внедрить автоматическую проверку обязательных полей, чтобы система проверяла комплектность документов на этапе подачи заявки.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-007",
+       "resolved_pattern": "AP-007",
+       "problem": "Операция выполняется вручную, что приводит к задержкам в обработке документов.",
+       "solution": "Внедрить OCR для автоматической обработки документов, чтобы система распознавала и извлекала ключевые поля из поступающих документов.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "Операция выполняется вручную, что может привести к задержкам в передаче пакета на рассмотрение.",
+       "solution": "Внедрить электронное согласование для автоматизации передачи пакета документов на рассмотрение.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-001",
+      "AP-003",
+      "AP-007",
+      "AP-009",
+      "AP-013",
+      "AP-002"
+     ],
+     "retrieval_latency_s": 1.370668400079012,
+     "embedding_tokens": 264,
+     "llm": {
+      "prompt_tokens": 8828,
+      "completion_tokens": 725,
+      "total_tokens": 9553,
+      "latency_s": 6.5063489999156445,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-013",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-005"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-003"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-006"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-005",
+       "resolved_pattern": "AP-005",
+       "problem": "Операция выполняется вручную, и одни и те же данные вводятся трижды, что приводит к расхождениям между копиями.",
+       "solution": "Настроить автоматическую подстановку значений из CRM в биллинговую систему, чтобы избежать повторного ввода данных.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-003",
+       "resolved_pattern": "AP-003",
+       "problem": "Операция выполняется вручную, что может привести к ошибкам при вводе данных.",
+       "solution": "Внедрить автоматическую проверку обязательных полей при вводе данных в CRM, чтобы избежать ошибок и недостающей информации.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-006",
+       "resolved_pattern": "AP-005",
+       "problem": "Операция выполняется вручную, что приводит к ручному переносу данных из CRM.",
+       "solution": "Настроить автоматическую интеграцию между CRM и таблицей отдела, чтобы данные автоматически обновлялись без ручного ввода.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-005",
+      "AP-006",
+      "AP-003",
+      "AP-007",
+      "AP-008",
+      "AP-013"
+     ],
+     "retrieval_latency_s": 1.3126239000121132,
+     "embedding_tokens": 238,
+     "llm": {
+      "prompt_tokens": 8878,
+      "completion_tokens": 679,
+      "total_tokens": 9557,
+      "latency_s": 6.719593700021505,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-014",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-005"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-005"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-005",
+       "resolved_pattern": "AP-005",
+       "problem": "Операция выполняется вручную, что приводит к двойному вводу одних и тех же реквизитов, что увеличивает вероятность ошибок и затрачиваемое время.",
+       "solution": "Настроить автоматическую подстановку значений из кадровой системы в систему расчёта отпусков, чтобы избежать повторного ввода данных.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-005",
+       "resolved_pattern": "AP-005",
+       "problem": "Операция выполняется вручную, что приводит к двойному вводу одних и тех же реквизитов, что увеличивает вероятность ошибок и затрачиваемое время.",
+       "solution": "Настроить автоматическую подстановку значений из кадровой системы в систему пропусков, чтобы избежать повторного ввода данных.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-005",
+      "AP-007",
+      "AP-009",
+      "AP-012",
+      "AP-006",
+      "AP-013"
+     ],
+     "retrieval_latency_s": 1.260713600087911,
+     "embedding_tokens": 288,
+     "llm": {
+      "prompt_tokens": 8812,
+      "completion_tokens": 542,
+      "total_tokens": 9354,
+      "latency_s": 5.46511410002131,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-015",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-008"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-008",
+       "resolved_pattern": "AP-005",
+       "problem": "Параметры заказа переписываются вручную из формы в два документа, что приводит к опечаткам в накладной и увеличивает время обработки заказа.",
+       "solution": "Автоматизировать процесс копирования параметров заказа, чтобы данные из формы автоматически заполняли накладную и письмо поставщику.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-001",
+       "problem": "Отправка письма поставщику выполняется вручную, что увеличивает время обработки заказа.",
+       "solution": "Автоматизировать отправку письма поставщику, чтобы оно отправлялось автоматически после заполнения накладной.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-001",
+      "AP-009",
+      "AP-013",
+      "AP-002",
+      "AP-008"
+     ],
+     "retrieval_latency_s": 0.9758584999945015,
+     "embedding_tokens": 217,
+     "llm": {
+      "prompt_tokens": 8423,
+      "completion_tokens": 532,
+      "total_tokens": 8955,
+      "latency_s": 5.899290099972859,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-016",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-004"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-001",
+       "problem": "Операция выполняется вручную, что приводит к задержкам в обработке заявок и увеличивает время ожидания для клиентов.",
+       "solution": "Автоматизировать обработку заявок и изменение их статуса с помощью автоматической маршрутизации заявок, чтобы заявки сразу попадали к нужному исполнителю.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-004",
+       "resolved_pattern": "AP-004",
+       "problem": "Операция выполняется вручную, и клиенты часто звонят, чтобы узнать статус своих заявок, что создает дополнительную нагрузку на специалистов.",
+       "solution": "Внедрить автоматические уведомления о смене статуса заявки, чтобы клиенты получали информацию без необходимости звонить.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-004",
+      "AP-008",
+      "AP-001",
+      "AP-003",
+      "AP-006"
+     ],
+     "retrieval_latency_s": 1.0398494999390095,
+     "embedding_tokens": 207,
+     "llm": {
+      "prompt_tokens": 8448,
+      "completion_tokens": 555,
+      "total_tokens": 9003,
+      "latency_s": 6.036352899973281,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-017",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-004"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-001"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-004",
+       "resolved_pattern": "AP-004",
+       "problem": "Исполнители узнают о назначении задач случайно и замечают новые задачи с опозданием, что приводит к задержкам в работе.",
+       "solution": "Внедрить автоматические уведомления о новых задачах и изменениях статуса, чтобы исполнители получали информацию сразу.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-001",
+       "problem": "Руководитель группы вручную назначает исполнителей на задачи, что занимает время и может привести к ошибкам.",
+       "solution": "Автоматизировать процесс назначения исполнителей на задачи с помощью автоматической маршрутизации заявок, основываясь на заранее заданных правилах.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-013",
+      "AP-004",
+      "AP-009",
+      "AP-001"
+     ],
+     "retrieval_latency_s": 1.2488430000375956,
+     "embedding_tokens": 222,
+     "llm": {
+      "prompt_tokens": 8052,
+      "completion_tokens": 530,
+      "total_tokens": 8582,
+      "latency_s": 6.327291100053117,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-018",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-002"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-002"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "Согласующий не знает, что документ ждёт его решения, и напоминания пишутся вручную, что увеличивает время ожидания.",
+       "solution": "Автоматизировать процесс напоминания согласующему о необходимости решения документа с помощью системы уведомлений.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "Операция отправки документа согласующему выполняется вручную, что увеличивает время на передачу.",
+       "solution": "Автоматизировать отправку документа согласующему через систему документооборота, чтобы документ автоматически передавался следующему согласующему.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "Операция принятия решения по документу выполняется вручную, что увеличивает время на согласование.",
+       "solution": "Внедрить систему, которая позволит согласующему принимать решение по документу в электронном виде, фиксируя результаты в системе.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-002",
+      "AP-009",
+      "AP-001",
+      "AP-007",
+      "AP-010"
+     ],
+     "retrieval_latency_s": 1.4279149000067264,
+     "embedding_tokens": 258,
+     "llm": {
+      "prompt_tokens": 8394,
+      "completion_tokens": 725,
+      "total_tokens": 9119,
+      "latency_s": 7.094624200020917,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-019",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-007"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-007"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-007",
+       "resolved_pattern": "AP-007",
+       "problem": "Операция выполняется вручную, что приводит к ошибкам в реквизитах и суммах из-за ручного набора с бумажных сканов.",
+       "solution": "Внедрить систему распознавания текста (OCR) для автоматического извлечения реквизитов и сумм из сканов счетов, с последующей проверкой результатов оператором.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-007",
+       "resolved_pattern": "AP-007",
+       "problem": "Операция выполняется вручную, что увеличивает время обработки входящих счетов.",
+       "solution": "Внедрить систему распознавания текста (OCR) для автоматического получения данных из сканов счетов, что позволит сократить время на получение информации.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-007",
+      "AP-012",
+      "AP-005",
+      "AP-009",
+      "AP-001"
+     ],
+     "retrieval_latency_s": 1.3718768000835553,
+     "embedding_tokens": 252,
+     "llm": {
+      "prompt_tokens": 8432,
+      "completion_tokens": 606,
+      "total_tokens": 9038,
+      "latency_s": 6.071723100030795,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-020",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-002"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-010"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "В процессе согласования договоров возникают проблемы с расхождением версий документа и неясностью, у кого находится документ. Эти проблемы приводят к задержкам и путанице.",
+       "solution": "Рекомендуется внедрить систему электронного согласования, которая позволит автоматически отслеживать статус документа и фиксировать все изменения и комментарии в одном месте.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-010",
+       "resolved_pattern": "AP-010",
+       "problem": "Подготовка проекта договора занимает много времени и выполняется вручную, что может привести к ошибкам и несоответствиям в документах.",
+       "solution": "Рекомендуется использовать шаблоны документов для автоматизации подготовки проектов договоров, что позволит ускорить процесс и снизить вероятность ошибок.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "Подписание договора выполняется вручную, что может привести к задержкам в процессе согласования.",
+       "solution": "Рекомендуется внедрить систему электронного подписания, что позволит ускорить процесс подписания и сделать его более удобным.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-002",
+      "AP-007",
+      "AP-010",
+      "AP-009",
+      "AP-001",
+      "AP-013"
+     ],
+     "retrieval_latency_s": 1.4147438000654802,
+     "embedding_tokens": 263,
+     "llm": {
+      "prompt_tokens": 8776,
+      "completion_tokens": 881,
+      "total_tokens": 9657,
+      "latency_s": 9.880636600079015,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-021",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-009"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-002"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-009",
+       "resolved_pattern": "AP-009",
+       "problem": "Секретарь вручную просматривает таблицу и ищет просроченные поручения, что приводит к тому, что о просрочке узнают постфактум и нет предупреждения о приближении срока.",
+       "solution": "Автоматизировать процесс отслеживания сроков выполнения поручений с помощью системы, которая будет отправлять предупреждения о приближении сроков и эскалацию при просрочке.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-009",
+       "problem": "Секретарь вручную фиксирует поручение и срок в таблице, что требует времени и может приводить к ошибкам.",
+       "solution": "Внедрить электронную систему для автоматической регистрации поручений и сроков, что позволит избежать ручного ввода.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-009",
+      "AP-013",
+      "AP-007",
+      "AP-001",
+      "AP-002"
+     ],
+     "retrieval_latency_s": 1.2072584999259561,
+     "embedding_tokens": 254,
+     "llm": {
+      "prompt_tokens": 8426,
+      "completion_tokens": 558,
+      "total_tokens": 8984,
+      "latency_s": 5.506678399979137,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-022",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-014"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-006"
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-009"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-014",
+       "resolved_pattern": "AP-014",
+       "problem": "Операция по сравнению записей выполняется вручную, что приводит к выборочной сверке и задержкам в обнаружении расхождений. Поиск причин расхождений занимает много времени.",
+       "solution": "Настроить автоматическую сверку данных между системами, чтобы выявлять расхождения и формировать список для разбора.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-006",
+       "resolved_pattern": "AP-014",
+       "problem": "Операция по выгрузке записей из двух систем выполняется вручную, что увеличивает время на подготовку данных.",
+       "solution": "Настроить интеграцию информационных систем для автоматической выгрузки данных, чтобы избежать ручного вмешательства.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s3",
+       "pattern_id": "AP-009",
+       "resolved_pattern": "AP-009",
+       "problem": "Операция по исправлению расхождений выполняется вручную, что может привести к задержкам в исправлении ошибок.",
+       "solution": "Внедрить систему контроля сроков выполнения задач, чтобы отслеживать исправление расхождений и предупреждать о рисках просрочки.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-014",
+      "AP-007",
+      "AP-012",
+      "AP-006",
+      "AP-013",
+      "AP-009"
+     ],
+     "retrieval_latency_s": 2.8036212000297382,
+     "embedding_tokens": 256,
+     "llm": {
+      "prompt_tokens": 8773,
+      "completion_tokens": 736,
+      "total_tokens": 9509,
+      "latency_s": 11.831981000024825,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-023",
+     "config": "B",
+     "kind": "positive",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-010"
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-010"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-010",
+       "resolved_pattern": "AP-010",
+       "problem": "Операция по копированию старого документа и замене данных вручную занимает много времени и приводит к ошибкам, так как остаются чужие данные и формулировки отличаются от документа к документу.",
+       "solution": "Внедрить шаблоны документов с полями подстановки, которые будут автоматически заполняться данными из карточки клиента.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-010",
+       "resolved_pattern": "AP-007",
+       "problem": "Операция по поиску похожего документа в архиве выполняется вручную, что занимает время и может быть неэффективным.",
+       "solution": "Автоматизировать поиск документов в архиве с помощью системы, которая будет находить и предлагать похожие документы на основе заданных критериев.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-010",
+      "AP-007",
+      "AP-002",
+      "AP-005",
+      "AP-001"
+     ],
+     "retrieval_latency_s": 1.3642587999347597,
+     "embedding_tokens": 253,
+     "llm": {
+      "prompt_tokens": 8430,
+      "completion_tokens": 637,
+      "total_tokens": 9067,
+      "latency_s": 5.349114699987695,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-024",
+     "config": "B",
+     "kind": "negative",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [],
+     "recs": [],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-008",
+      "AP-004",
+      "AP-012"
+     ],
+     "retrieval_latency_s": 0.31422980001661927,
+     "embedding_tokens": 76,
+     "llm": {
+      "prompt_tokens": 7437,
+      "completion_tokens": 28,
+      "total_tokens": 7465,
+      "latency_s": 0.8462922000326216,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-025",
+     "config": "B",
+     "kind": "negative",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-001"
+      },
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-004"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-001",
+       "resolved_pattern": "AP-001",
+       "problem": "Операция выполняется вручную, что приводит к длительному времени на разработку концепции рекламной кампании (480 минут).",
+       "solution": "Рекомендуется внедрить автоматическую маршрутизацию заявок, чтобы креативный директор мог получать задачи в единой очереди с приоритизацией, что позволит более эффективно управлять временем и ресурсами.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-004",
+       "resolved_pattern": "AP-004",
+       "problem": "Операция обсуждения концепции с командой выполняется вручную, что может затруднять координацию и обмен идеями.",
+       "solution": "Рекомендуется внедрить автоматические уведомления о новых идеях и изменениях в концепции, чтобы команда могла быстрее реагировать на изменения и обсуждать их в удобное время.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-013",
+      "AP-009",
+      "AP-001",
+      "AP-002",
+      "AP-004"
+     ],
+     "retrieval_latency_s": 0.9132536000106484,
+     "embedding_tokens": 232,
+     "llm": {
+      "prompt_tokens": 8082,
+      "completion_tokens": 477,
+      "total_tokens": 8559,
+      "latency_s": 4.478609099984169,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-026",
+     "config": "B",
+     "kind": "negative",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-009"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-009",
+       "resolved_pattern": "AP-012",
+       "problem": "Операция выполняется вручную, что может привести к ошибкам и неэффективности, несмотря на отсутствие жалоб.",
+       "solution": "Рекомендуется автоматизировать процесс смены пароля с помощью системы управления паролями, которая будет обновлять пароль автоматически в заданное время.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-007",
+      "AP-006",
+      "AP-010",
+      "AP-005",
+      "AP-009"
+     ],
+     "retrieval_latency_s": 0.5548225999809802,
+     "embedding_tokens": 125,
+     "llm": {
+      "prompt_tokens": 7853,
+      "completion_tokens": 288,
+      "total_tokens": 8141,
+      "latency_s": 3.685608199913986,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-027",
+     "config": "B",
+     "kind": "negative",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-009"
+      },
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-009"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-009",
+       "resolved_pattern": "AP-009",
+       "problem": "Операция \"Провести переговоры о цене с поставщиком\" выполняется вручную, что может привести к неэффективному распределению времени и ресурсов.",
+       "solution": "Рекомендуется внедрить систему контроля сроков выполнения, которая будет отслеживать процесс переговоров и напоминать о ключевых моментах, чтобы избежать задержек.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      },
+      {
+       "step_id": "s2",
+       "pattern_id": "AP-009",
+       "resolved_pattern": "AP-009",
+       "problem": "Операция \"Оценить надёжность поставщика по личной встрече\" также выполняется вручную, что может привести к задержкам в процессе закупки.",
+       "solution": "Рекомендуется внедрить систему контроля сроков выполнения, которая будет отслеживать процесс оценки надёжности поставщика и напоминать о ключевых моментах.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-013",
+      "AP-009",
+      "AP-002",
+      "AP-006"
+     ],
+     "retrieval_latency_s": 1.035645200056024,
+     "embedding_tokens": 252,
+     "llm": {
+      "prompt_tokens": 7667,
+      "completion_tokens": 462,
+      "total_tokens": 8129,
+      "latency_s": 7.398650199989788,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-028",
+     "config": "B",
+     "kind": "ambiguous",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-001"
+      }
+     ],
+     "recs": [],
+     "rejected_reasons": [
+      "тип выполнения операции не указан и нет явных признаков ручной работы (pain_points или маркеры ручной работы в описании) — по методике такая операция не рекомендуется"
+     ],
+     "retrieved_pool": [
+      "AP-001",
+      "AP-003",
+      "AP-013",
+      "AP-008"
+     ],
+     "retrieval_latency_s": 0.4789634000044316,
+     "embedding_tokens": 68,
+     "llm": {
+      "prompt_tokens": 7614,
+      "completion_tokens": 352,
+      "total_tokens": 7966,
+      "latency_s": 3.5958697999594733,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-029",
+     "config": "B",
+     "kind": "ambiguous",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-002"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-002",
+       "resolved_pattern": "AP-002",
+       "problem": "Тип выполнения операции не указан, что затрудняет понимание, как именно происходит согласование. Это может привести к неэффективности процесса, если согласование осуществляется вручную.",
+       "solution": "Рекомендуется внедрить электронное согласование через систему документооборота, чтобы автоматизировать процесс согласования решений.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-002",
+      "AP-009",
+      "AP-001",
+      "AP-006"
+     ],
+     "retrieval_latency_s": 3.002169999992475,
+     "embedding_tokens": 106,
+     "llm": {
+      "prompt_tokens": 7563,
+      "completion_tokens": 292,
+      "total_tokens": 7855,
+      "latency_s": 3.2542182999895886,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    },
+    {
+     "test_id": "GD-030",
+     "config": "B",
+     "kind": "ambiguous",
+     "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 4096,
+      "seed": 42
+     },
+     "error": null,
+     "raw_recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-003"
+      }
+     ],
+     "recs": [
+      {
+       "step_id": "s1",
+       "pattern_id": "AP-003",
+       "resolved_pattern": "AP-003",
+       "problem": "В процессе проверки данных клиента иногда возникают ошибки ввода, что может привести к задержкам и дополнительным уточнениям.",
+       "solution": "Рекомендуется внедрить автоматическую проверку обязательных полей при вводе данных клиента, чтобы исключить некорректные заявки.",
+       "rationale_present": true,
+       "conditions_analyzed": true
+      }
+     ],
+     "rejected_reasons": [],
+     "retrieved_pool": [
+      "AP-003",
+      "AP-005",
+      "AP-009",
+      "AP-012"
+     ],
+     "retrieval_latency_s": 1.431000699987635,
+     "embedding_tokens": 64,
+     "llm": {
+      "prompt_tokens": 7591,
+      "completion_tokens": 303,
+      "total_tokens": 7894,
+      "latency_s": 4.541932300082408,
+      "finish_reason": "stop",
+      "system_fingerprint": "fp_b763061467"
+     }
+    }
+   ]
+  },
+  "metrics": {
+   "A": {
+    "n": 30,
+    "evaluated": 30,
+    "errors": [],
+    "f1_resolved": {
+     "n_positive": 23,
+     "macro_f1": 0.7246376811594203,
+     "micro_f1": 0.7272727272727273,
+     "mean_precision": 0.6521739130434783,
+     "mean_recall": 0.8695652173913043,
+     "tp": 20,
+     "fp": 12,
+     "fn": 3
+    },
+    "violations_resolved": {
+     "total": 6,
+     "examples_with_violation": 5,
+     "n": 30
+    },
+    "f1_explicit": {
+     "n_positive": 23,
+     "macro_f1": 0.0,
+     "micro_f1": 0.0,
+     "mean_precision": 0.0,
+     "mean_recall": 0.0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 23
+    },
+    "violations_explicit": {
+     "total": 6,
+     "examples_with_violation": 5,
+     "n": 30
+    },
+    "negatives": {
+     "n": 4,
+     "correct_after_validation": 3,
+     "correct_raw_llm": 3,
+     "false_recommendations_after_validation": 2,
+     "false_recommendations_raw_llm": 2
+    },
+    "ambiguous": {
+     "n": 3,
+     "correct": 3
+    },
+    "justification": {
+     "recommendations": 51,
+     "per_example": 1.7,
+     "rationale_present": 1.0,
+     "kb_reference": 0.0,
+     "conditions_analyzed": 0.0
+    },
+    "raw_recommendations": 51,
+    "rejected_by_validation": 0,
+    "llm_latency_s": {
+     "n": 30,
+     "mean": 4.23801693332692,
+     "median": 4.7195616500102915,
+     "p95": 6.454592699999921,
+     "minimum": 0.8902317000320181,
+     "maximum": 7.536597399972379,
+     "total": 127.1405079998076
+    },
+    "retrieval_latency_s": {
+     "n": 30,
+     "mean": 0.0,
+     "median": 0.0,
+     "p95": 0.0,
+     "minimum": 0.0,
+     "maximum": 0.0,
+     "total": 0.0
+    },
+    "total_latency_s": {
+     "n": 30,
+     "mean": 4.23801693332692,
+     "median": 4.7195616500102915,
+     "p95": 6.454592699999921,
+     "minimum": 0.8902317000320181,
+     "maximum": 7.536597399972379,
+     "total": 127.1405079998076
+    },
+    "prompt_tokens": {
+     "n": 30,
+     "mean": 6334.133333333333,
+     "median": 6414.0,
+     "p95": 6463.0,
+     "minimum": 5947.0,
+     "maximum": 6468.0,
+     "total": 190024.0
+    },
+    "completion_tokens": {
+     "n": 30,
+     "mean": 363.8333333333333,
+     "median": 429.5,
+     "p95": 589.0,
+     "minimum": 33.0,
+     "maximum": 599.0,
+     "total": 10915.0
+    },
+    "total_tokens": {
+     "n": 30,
+     "mean": 6697.966666666666,
+     "median": 6845.5,
+     "p95": 7022.0,
+     "minimum": 6001.0,
+     "maximum": 7036.0,
+     "total": 200939.0
+    },
+    "embedding_tokens_total": 0,
+    "finish_reasons": [
+     "stop"
+    ],
+    "system_fingerprints": [
+     "fp_5a9d97c6db",
+     "fp_b763061467"
+    ]
+   },
+   "B": {
+    "n": 30,
+    "evaluated": 30,
+    "errors": [],
+    "f1_resolved": {
+     "n_positive": 23,
+     "macro_f1": 0.7101449275362318,
+     "micro_f1": 0.7142857142857143,
+     "mean_precision": 0.6304347826086957,
+     "mean_recall": 0.8695652173913043,
+     "tp": 20,
+     "fp": 13,
+     "fn": 3
+    },
+    "violations_resolved": {
+     "total": 9,
+     "examples_with_violation": 7,
+     "n": 30
+    },
+    "f1_explicit": {
+     "n_positive": 23,
+     "macro_f1": 0.6666666666666666,
+     "micro_f1": 0.6785714285714286,
+     "mean_precision": 0.5869565217391305,
+     "mean_recall": 0.8260869565217391,
+     "tp": 19,
+     "fp": 14,
+     "fn": 4
+    },
+    "violations_explicit": {
+     "total": 9,
+     "examples_with_violation": 7,
+     "n": 30
+    },
+    "negatives": {
+     "n": 4,
+     "correct_after_validation": 1,
+     "correct_raw_llm": 1,
+     "false_recommendations_after_validation": 5,
+     "false_recommendations_raw_llm": 5
+    },
+    "ambiguous": {
+     "n": 3,
+     "correct": 3
+    },
+    "justification": {
+     "recommendations": 56,
+     "per_example": 1.8666666666666667,
+     "rationale_present": 1.0,
+     "kb_reference": 1.0,
+     "conditions_analyzed": 1.0
+    },
+    "raw_recommendations": 58,
+    "rejected_by_validation": 2,
+    "llm_latency_s": {
+     "n": 30,
+     "mean": 5.943682316671281,
+     "median": 5.96782149997307,
+     "p95": 10.783345900010318,
+     "minimum": 0.8462922000326216,
+     "maximum": 11.831981000024825,
+     "total": 178.31046950013842
+    },
+    "retrieval_latency_s": {
+     "n": 30,
+     "mean": 1.2371237566733422,
+     "median": 1.2474335500155576,
+     "p95": 2.8036212000297382,
+     "minimum": 0.31422980001661927,
+     "maximum": 3.002169999992475,
+     "total": 37.11371270020027
+    },
+    "total_latency_s": {
+     "n": 30,
+     "mean": 7.180806073344623,
+     "median": 6.975675499939825,
+     "p95": 12.033414400066249,
+     "minimum": 1.1605220000492409,
+     "maximum": 14.635602200054564,
+     "total": 215.4241822003387
+    },
+    "prompt_tokens": {
+     "n": 30,
+     "mean": 8340.733333333334,
+     "median": 8424.5,
+     "p95": 8878.0,
+     "minimum": 7437.0,
+     "maximum": 9264.0,
+     "total": 250222.0
+    },
+    "completion_tokens": {
+     "n": 30,
+     "mean": 529.8,
+     "median": 537.0,
+     "p95": 736.0,
+     "minimum": 28.0,
+     "maximum": 881.0,
+     "total": 15894.0
+    },
+    "total_tokens": {
+     "n": 30,
+     "mean": 8870.533333333333,
+     "median": 9005.0,
+     "p95": 9657.0,
+     "minimum": 7465.0,
+     "maximum": 9831.0,
+     "total": 266116.0
+    },
+    "embedding_tokens_total": 6331,
+    "finish_reasons": [
+     "stop"
+    ],
+    "system_fingerprints": [
+     "fp_b763061467"
+    ]
+   }
+  }
+ },
+ "temperature": {
+  "examples": [
+   "GD-001",
+   "GD-007",
+   "GD-010",
+   "GD-013",
+   "GD-016",
+   "GD-025"
+  ],
+  "temperatures": [
+   0.0,
+   0.7
+  ],
+  "seeds": [
+   11,
+   22,
+   33
+  ],
+  "summary": {
+   "0.0": {
+    "runs": 18,
+    "errors": 0,
+    "mean_f1": 0.5666666666666667,
+    "stability_jaccard": 0.7962962962962963,
+    "violation_rate": 0.16666666666666666,
+    "negative_correct_rate": 0.0,
+    "mean_llm_latency_s": 5.711930750015502,
+    "mean_total_tokens": 8913.666666666666,
+    "max_completion_tokens": 720,
+    "per_example": {
+     "GD-001": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-007"
+       ],
+       [
+        "AP-007"
+       ],
+       [
+        "AP-007"
+       ]
+      ]
+     },
+     "GD-007": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-001",
+        "AP-004"
+       ],
+       [
+        "AP-001",
+        "AP-004"
+       ],
+       [
+        "AP-001",
+        "AP-004"
+       ]
+      ]
+     },
+     "GD-010": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-003"
+       ],
+       [
+        "AP-001",
+        "AP-003"
+       ],
+       [
+        "AP-003"
+       ]
+      ]
+     },
+     "GD-013": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-003",
+        "AP-005"
+       ],
+       [
+        "AP-003",
+        "AP-005"
+       ],
+       [
+        "AP-003",
+        "AP-005",
+        "AP-007"
+       ]
+      ]
+     },
+     "GD-016": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-001",
+        "AP-004"
+       ],
+       [
+        "AP-001",
+        "AP-004"
+       ],
+       [
+        "AP-001",
+        "AP-004"
+       ]
+      ]
+     },
+     "GD-025": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-001",
+        "AP-002"
+       ],
+       [
+        "AP-001",
+        "AP-004"
+       ],
+       [
+        "AP-001",
+        "AP-006"
+       ]
+      ]
+     }
+    }
+   },
+   "0.7": {
+    "runs": 18,
+    "errors": 0,
+    "mean_f1": 0.6888888888888889,
+    "stability_jaccard": 0.7777777777777777,
+    "violation_rate": 0.16666666666666666,
+    "negative_correct_rate": 0.0,
+    "mean_llm_latency_s": 5.413552633318533,
+    "mean_total_tokens": 8920.444444444445,
+    "max_completion_tokens": 734,
+    "per_example": {
+     "GD-001": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-007"
+       ],
+       [
+        "AP-007"
+       ],
+       [
+        "AP-007"
+       ]
+      ]
+     },
+     "GD-007": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-001",
+        "AP-011"
+       ],
+       [
+        "AP-001",
+        "AP-004"
+       ],
+       [
+        "AP-001"
+       ]
+      ]
+     },
+     "GD-010": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-003"
+       ],
+       [
+        "AP-003"
+       ],
+       [
+        "AP-003"
+       ]
+      ]
+     },
+     "GD-013": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-005"
+       ],
+       [
+        "AP-005"
+       ],
+       [
+        "AP-003",
+        "AP-005"
+       ]
+      ]
+     },
+     "GD-016": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-001",
+        "AP-004"
+       ],
+       [
+        "AP-001",
+        "AP-004"
+       ],
+       [
+        "AP-001",
+        "AP-004"
+       ]
+      ]
+     },
+     "GD-025": {
+      "seeds": [
+       11,
+       22,
+       33
+      ],
+      "patterns": [
+       [
+        "AP-004",
+        "AP-009"
+       ],
+       [
+        "AP-002",
+        "AP-004"
+       ],
+       [
+        "AP-002",
+        "AP-004"
+       ]
+      ]
+     }
+    }
+   }
+  },
+  "f1_gain_high_vs_low": 0.12222222222222223,
+  "min_f1_gain_rule": 0.05,
+  "chosen_temperature": 0.0
+ },
+ "chosen": {
+  "temperature": 0.0,
+  "top_p": 1.0,
+  "max_tokens": 4096,
+  "observed_max_completion_tokens": 881,
+  "default_matches": true
+ },
+ "appendix": [
+  {
+   "test_id": "GD-001",
+   "category": "manual_detection",
+   "kind": "positive",
+   "expected": [
+    "AP-005"
+   ],
+   "a": [
+    "AP-005"
+   ],
+   "b": [
+    "AP-007"
+   ],
+   "b_explicit": [
+    "AP-007"
+   ]
+  },
+  {
+   "test_id": "GD-002",
+   "category": "manual_detection",
+   "kind": "positive",
+   "expected": [
+    "AP-012"
+   ],
+   "a": [
+    "AP-001",
+    "AP-014"
+   ],
+   "b": [
+    "AP-012"
+   ],
+   "b_explicit": [
+    "AP-012"
+   ]
+  },
+  {
+   "test_id": "GD-003",
+   "category": "manual_detection",
+   "kind": "positive",
+   "expected": [
+    "AP-005"
+   ],
+   "a": [
+    "AP-005"
+   ],
+   "b": [
+    "AP-003",
+    "AP-008"
+   ],
+   "b_explicit": [
+    "AP-007",
+    "AP-008"
+   ]
+  },
+  {
+   "test_id": "GD-004",
+   "category": "applicability",
+   "kind": "positive",
+   "expected": [
+    "AP-001"
+   ],
+   "a": [
+    "AP-001",
+    "AP-009"
+   ],
+   "b": [
+    "AP-001",
+    "AP-009"
+   ],
+   "b_explicit": [
+    "AP-001",
+    "AP-009"
+   ]
+  },
+  {
+   "test_id": "GD-005",
+   "category": "applicability",
+   "kind": "positive",
+   "expected": [
+    "AP-002"
+   ],
+   "a": [
+    "AP-002",
+    "AP-003",
+    "AP-009"
+   ],
+   "b": [
+    "AP-001",
+    "AP-002",
+    "AP-004"
+   ],
+   "b_explicit": [
+    "AP-001",
+    "AP-002",
+    "AP-004"
+   ]
+  },
+  {
+   "test_id": "GD-006",
+   "category": "applicability",
+   "kind": "positive",
+   "expected": [
+    "AP-008"
+   ],
+   "a": [
+    "AP-003",
+    "AP-008"
+   ],
+   "b": [
+    "AP-008"
+   ],
+   "b_explicit": [
+    "AP-008"
+   ]
+  },
+  {
+   "test_id": "GD-007",
+   "category": "routing",
+   "kind": "positive",
+   "expected": [
+    "AP-001"
+   ],
+   "a": [
+    "AP-001",
+    "AP-008"
+   ],
+   "b": [
+    "AP-001"
+   ],
+   "b_explicit": [
+    "AP-001"
+   ]
+  },
+  {
+   "test_id": "GD-008",
+   "category": "routing",
+   "kind": "positive",
+   "expected": [
+    "AP-001"
+   ],
+   "a": [
+    "AP-001",
+    "AP-003"
+   ],
+   "b": [
+    "AP-001",
+    "AP-009"
+   ],
+   "b_explicit": [
+    "AP-001",
+    "AP-009"
+   ]
+  },
+  {
+   "test_id": "GD-009",
+   "category": "routing",
+   "kind": "positive",
+   "expected": [
+    "AP-001"
+   ],
+   "a": [
+    "AP-001",
+    "AP-002"
+   ],
+   "b": [
+    "AP-001",
+    "AP-002"
+   ],
+   "b_explicit": [
+    "AP-001",
+    "AP-002"
+   ]
+  },
+  {
+   "test_id": "GD-010",
+   "category": "validation",
+   "kind": "positive",
+   "expected": [
+    "AP-003"
+   ],
+   "a": [
+    "AP-003"
+   ],
+   "b": [
+    "AP-003"
+   ],
+   "b_explicit": [
+    "AP-001",
+    "AP-003"
+   ]
+  },
+  {
+   "test_id": "GD-011",
+   "category": "validation",
+   "kind": "positive",
+   "expected": [
+    "AP-003"
+   ],
+   "a": [
+    "AP-003",
+    "AP-008"
+   ],
+   "b": [
+    "AP-003"
+   ],
+   "b_explicit": [
+    "AP-003"
+   ]
+  },
+  {
+   "test_id": "GD-012",
+   "category": "validation",
+   "kind": "positive",
+   "expected": [
+    "AP-003"
+   ],
+   "a": [
+    "AP-002",
+    "AP-003",
+    "AP-007"
+   ],
+   "b": [
+    "AP-002",
+    "AP-003",
+    "AP-007"
+   ],
+   "b_explicit": [
+    "AP-002",
+    "AP-003",
+    "AP-007"
+   ]
+  },
+  {
+   "test_id": "GD-013",
+   "category": "deduplication",
+   "kind": "positive",
+   "expected": [
+    "AP-005"
+   ],
+   "a": [
+    "AP-005"
+   ],
+   "b": [
+    "AP-003",
+    "AP-005"
+   ],
+   "b_explicit": [
+    "AP-003",
+    "AP-005",
+    "AP-006"
+   ]
+  },
+  {
+   "test_id": "GD-014",
+   "category": "deduplication",
+   "kind": "positive",
+   "expected": [
+    "AP-005"
+   ],
+   "a": [
+    "AP-005"
+   ],
+   "b": [
+    "AP-005"
+   ],
+   "b_explicit": [
+    "AP-005"
+   ]
+  },
+  {
+   "test_id": "GD-015",
+   "category": "deduplication",
+   "kind": "positive",
+   "expected": [
+    "AP-005"
+   ],
+   "a": [
+    "AP-001",
+    "AP-005"
+   ],
+   "b": [
+    "AP-001",
+    "AP-005"
+   ],
+   "b_explicit": [
+    "AP-002",
+    "AP-008"
+   ]
+  },
+  {
+   "test_id": "GD-016",
+   "category": "notifications",
+   "kind": "positive",
+   "expected": [
+    "AP-004"
+   ],
+   "a": [
+    "AP-003",
+    "AP-004"
+   ],
+   "b": [
+    "AP-001",
+    "AP-004"
+   ],
+   "b_explicit": [
+    "AP-001",
+    "AP-004"
+   ]
+  },
+  {
+   "test_id": "GD-017",
+   "category": "notifications",
+   "kind": "positive",
+   "expected": [
+    "AP-004"
+   ],
+   "a": [
+    "AP-004",
+    "AP-013"
+   ],
+   "b": [
+    "AP-001",
+    "AP-004"
+   ],
+   "b_explicit": [
+    "AP-001",
+    "AP-004"
+   ]
+  },
+  {
+   "test_id": "GD-018",
+   "category": "notifications",
+   "kind": "positive",
+   "expected": [
+    "AP-004"
+   ],
+   "a": [
+    "AP-002"
+   ],
+   "b": [
+    "AP-002"
+   ],
+   "b_explicit": [
+    "AP-002"
+   ]
+  },
+  {
+   "test_id": "GD-019",
+   "category": "other_patterns",
+   "kind": "positive",
+   "expected": [
+    "AP-007"
+   ],
+   "a": [],
+   "b": [
+    "AP-007"
+   ],
+   "b_explicit": [
+    "AP-007"
+   ]
+  },
+  {
+   "test_id": "GD-020",
+   "category": "other_patterns",
+   "kind": "positive",
+   "expected": [
+    "AP-002"
+   ],
+   "a": [
+    "AP-002",
+    "AP-010"
+   ],
+   "b": [
+    "AP-002",
+    "AP-010"
+   ],
+   "b_explicit": [
+    "AP-002",
+    "AP-010"
+   ]
+  },
+  {
+   "test_id": "GD-021",
+   "category": "other_patterns",
+   "kind": "positive",
+   "expected": [
+    "AP-009"
+   ],
+   "a": [
+    "AP-009"
+   ],
+   "b": [
+    "AP-009"
+   ],
+   "b_explicit": [
+    "AP-002",
+    "AP-009"
+   ]
+  },
+  {
+   "test_id": "GD-022",
+   "category": "other_patterns",
+   "kind": "positive",
+   "expected": [
+    "AP-014"
+   ],
+   "a": [
+    "AP-006",
+    "AP-014"
+   ],
+   "b": [
+    "AP-009",
+    "AP-014"
+   ],
+   "b_explicit": [
+    "AP-006",
+    "AP-009",
+    "AP-014"
+   ]
+  },
+  {
+   "test_id": "GD-023",
+   "category": "other_patterns",
+   "kind": "positive",
+   "expected": [
+    "AP-010"
+   ],
+   "a": [
+    "AP-007",
+    "AP-010"
+   ],
+   "b": [
+    "AP-007",
+    "AP-010"
+   ],
+   "b_explicit": [
+    "AP-010"
+   ]
+  },
+  {
+   "test_id": "GD-024",
+   "category": "no_automation",
+   "kind": "negative",
+   "expected": [],
+   "a": [],
+   "b": [],
+   "b_explicit": []
+  },
+  {
+   "test_id": "GD-025",
+   "category": "no_automation",
+   "kind": "negative",
+   "expected": [],
+   "a": [],
+   "b": [
+    "AP-001",
+    "AP-004"
+   ],
+   "b_explicit": [
+    "AP-001",
+    "AP-004"
+   ]
+  },
+  {
+   "test_id": "GD-026",
+   "category": "no_automation",
+   "kind": "negative",
+   "expected": [],
+   "a": [],
+   "b": [
+    "AP-012"
+   ],
+   "b_explicit": [
+    "AP-009"
+   ]
+  },
+  {
+   "test_id": "GD-027",
+   "category": "no_automation",
+   "kind": "negative",
+   "expected": [],
+   "a": [
+    "AP-002"
+   ],
+   "b": [
+    "AP-009"
+   ],
+   "b_explicit": [
+    "AP-009"
+   ]
+  },
+  {
+   "test_id": "GD-028",
+   "category": "ambiguous",
+   "kind": "ambiguous",
+   "expected": [],
+   "a": [],
+   "b": [],
+   "b_explicit": []
+  },
+  {
+   "test_id": "GD-029",
+   "category": "ambiguous",
+   "kind": "ambiguous",
+   "expected": [],
+   "a": [],
+   "b": [
+    "AP-002"
+   ],
+   "b_explicit": [
+    "AP-002"
+   ]
+  },
+  {
+   "test_id": "GD-030",
+   "category": "ambiguous",
+   "kind": "ambiguous",
+   "expected": [],
+   "a": [],
+   "b": [
+    "AP-003"
+   ],
+   "b_explicit": [
+    "AP-003"
+   ]
+  }
+ ]
+}

@@ -31,3 +31,11 @@ htmlcov/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Результаты оценок: кэш содержит найденные паттерны с полным текстом (большой файл)
+evals/results/cache.json
+evals/results/smoke.json
+evals/results/run.log
+
+# Задание курса (не часть проекта)
+Final project.pdf

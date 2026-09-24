@@ -27,6 +27,7 @@ from typing import Any, Callable, Literal, Protocol, TypedDict
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph
 from langgraph.types import Command, interrupt
+from langsmith.run_helpers import trace as ls_trace
 from openai import OpenAI
 from pydantic import BaseModel
 
@@ -47,17 +48,16 @@ from processmind.analysis.report import (
     SkillRef,
     build_to_be,
 )
+from processmind.analysis.retrieval import retrieve_patterns_for_process
 from processmind.analysis.skill import Skill, SkillError, load_skill
 from processmind.config import get_settings
+from processmind.observability import configure_tracing
 from processmind.mcp.client import McpClientError, McpToolError, SyncMCPClient
 from processmind.models import ProcessSpec
 from processmind.parsing.llm import get_client
-from processmind.rag.errors import KnowledgeBaseError
-from processmind.rag.knowledge_base import PatternMatch, build_query_from_process, get_pattern_by_id, search_automation_patterns
+from processmind.rag.knowledge_base import PatternMatch, get_pattern_by_id, search_automation_patterns
 from processmind.workflow.approval import ApprovalError, parse_decision
 
-PATTERNS_PER_QUERY = 3
-MAX_STEP_QUERIES = 8
 MCP_ERRORS = (McpToolError, McpClientError)
 
 NODE_NAMES = (
@@ -131,6 +131,20 @@ class AnalysisState(TypedDict, total=False):
     report: dict[str, Any]
 
 
+class _WorkflowFailure(Exception):
+    """Сбой workflow, записываемый в LangSmith как run с ошибкой."""
+
+
+def _record_outcome(outcome: str, errors: list[str]) -> None:
+    """Итог анализа в LangSmith: сбой — отдельный run со статусом «ошибка» (виден в фильтре Errors), остальное — метка."""
+    try:
+        with ls_trace(name="workflow_outcome", run_type="chain", inputs={"outcome": outcome, "errors": errors}, tags=[f"outcome:{outcome}"], metadata={"outcome": outcome}):
+            if outcome == "failed":
+                raise _WorkflowFailure("; ".join(errors))
+    except _WorkflowFailure:
+        pass  # ошибка уже отражена в трейсе; пользователю сбой показывает AnalysisReport
+
+
 def _fail(state: AnalysisState, message: str) -> dict[str, Any]:
     return {"outcome": "failed", "errors": [*state.get("errors", []), message]}
 
@@ -140,10 +154,17 @@ def _spec(state: AnalysisState) -> ProcessSpec:
 
 
 def build_workflow(deps: WorkflowDeps, checkpointer: Any | None = None):
-    """Компилирует граф. Checkpointer обязателен для пауз human-in-the-loop (по умолчанию — MemorySaver)."""
+    """Компилирует граф. Checkpointer обязателен для пауз human-in-the-loop (по умолчанию — MemorySaver).
+
+    Трассировка LangSmith включается переменными окружения (см. processmind/observability.py): узлы графа,
+    LLM-вызовы, поиск по базе знаний и вызовы MCP попадают в один трейс.
+    """
+    configure_tracing()
 
     # 1. validate_process ------------------------------------------------------------------------
     def validate_process(state: AnalysisState) -> dict[str, Any]:
+        if not isinstance(state["process"], dict):  # MCP-инструмент принимает только объект; сообщаем как ошибку данных
+            return {"outcome": "invalid", "errors": ["процесс: должен быть объектом (словарём) в формате ProcessSpec"]}
         try:
             report = deps.mcp.validate_process(state["process"])
         except MCP_ERRORS as exc:
@@ -163,32 +184,11 @@ def build_workflow(deps: WorkflowDeps, checkpointer: Any | None = None):
 
     # 3. retrieve_automation_patterns ------------------------------------------------------------
     def retrieve_automation_patterns(state: AnalysisState) -> dict[str, Any]:
-        spec = _spec(state)
-        candidates = [s for s in spec.steps if s.is_manual is not False][:MAX_STEP_QUERIES]
-        queries = [("process", build_query_from_process(spec))] + [(s.id, build_query_from_process(spec, s.id)) for s in candidates]
-
-        found: dict[str, dict[str, Any]] = {}
+        # Тот же код используют автоматизированные оценки (evals): параллельной реализации поиска нет.
+        patterns, warning = retrieve_patterns_for_process(_spec(state), deps.retrieve, deps.get_pattern)
         warnings = list(state.get("warnings", []))
-        try:
-            for label, query in queries:
-                for match in deps.retrieve(query, PATTERNS_PER_QUERY):
-                    entry = found.setdefault(
-                        match.pattern_id,
-                        {"pattern_id": match.pattern_id, "title": match.title, "source": match.source, "score": match.score, "matched_for": []},
-                    )
-                    entry["score"] = max(entry["score"], match.score)
-                    if label not in entry["matched_for"]:
-                        entry["matched_for"].append(label)
-        except KnowledgeBaseError as exc:
-            # Без базы знаний рекомендации возможны, но без ссылок на паттерны — об этом честно сообщаем.
-            warnings.append(f"База знаний недоступна: {exc} Рекомендации сформированы без опоры на паттерны.")
-            found = {}
-
-        patterns = []
-        for entry in sorted(found.values(), key=lambda e: e["score"], reverse=True):
-            pattern = deps.get_pattern(entry["pattern_id"])
-            entry["sections"] = pattern.sections if pattern is not None else {}
-            patterns.append(entry)
+        if warning:  # без базы знаний рекомендации возможны, но без ссылок на паттерны — об этом честно сообщаем
+            warnings.append(warning)
         return {"patterns": patterns, "warnings": warnings}
 
     # 4. generate_recommendations ----------------------------------------------------------------
@@ -319,6 +319,7 @@ def build_workflow(deps: WorkflowDeps, checkpointer: Any | None = None):
             llm_model=deps.llm_model if state.get("raw_recommendations") else None,
             embedding_model=deps.embedding_model if state.get("patterns") else None,
         )
+        _record_outcome(outcome, list(report.errors))
         return {"report": report.model_dump(mode="json")}
 
     # Сборка графа -------------------------------------------------------------------------------
@@ -368,6 +369,11 @@ def _config(thread_id: str) -> dict[str, Any]:
     return {"configurable": {"thread_id": thread_id}}
 
 
+def _run_config(thread_id: str, run_name: str, **metadata: Any) -> dict[str, Any]:
+    """Конфигурация запуска с именем и метками для трейса LangSmith."""
+    return {**_config(thread_id), "run_name": run_name, "tags": ["processmind", "analysis"], "metadata": {"thread_id": thread_id, **metadata}}
+
+
 def _pending_approval(state) -> dict[str, Any] | None:
     """Payload ожидающего interrupt() или None. Признак паузы — interrupts задач, а не `state.next`:
     после повторного interrupt() в одном узле (перезапрос при некорректном решении) `next` пуст."""
@@ -386,7 +392,10 @@ def start_analysis(graph, spec: ProcessSpec | dict[str, Any], runs_per_month: in
     """Запускает анализ. Возвращает либо запрос подтверждения (граф на паузе), либо готовый отчёт."""
     thread_id = thread_id or uuid.uuid4().hex
     process = spec.model_dump(mode="json") if isinstance(spec, BaseModel) else spec
-    graph.invoke({"process": process, "runs_per_month": runs_per_month, "errors": [], "warnings": []}, _config(thread_id))
+    known = process if isinstance(process, dict) else {}  # некорректный ввод не должен ломать построение метаданных трейса
+    steps = known.get("steps")
+    config = _run_config(thread_id, "process_analysis", process_id=known.get("process_id"), steps=len(steps) if isinstance(steps, list) else None, runs_per_month=runs_per_month)
+    graph.invoke({"process": process, "runs_per_month": runs_per_month, "errors": [], "warnings": []}, config)
     return _snapshot(graph, thread_id)
 
 
@@ -398,7 +407,7 @@ def resume_analysis(graph, thread_id: str, decision: dict[str, Any]) -> Analysis
     """
     if _pending_approval(graph.get_state(_config(thread_id))) is None:
         raise ApprovalStateError(f"Запуск {thread_id} не ожидает подтверждения")
-    graph.invoke(Command(resume=decision), _config(thread_id))
+    graph.invoke(Command(resume=decision), _run_config(thread_id, "process_analysis.resume", selections=len(decision.get("selections", [])) if isinstance(decision, dict) else None))
     return _snapshot(graph, thread_id)
 
 

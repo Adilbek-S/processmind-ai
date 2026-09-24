@@ -25,7 +25,7 @@ st.markdown(
 - Python MCP SDK / FastMCP — собственный MCP-сервер с инструментами ProcessMind
 - PyMuPDF — парсинг PDF-документов
 - Graphviz — визуализация AS-IS / TO-BE
-- LangSmith — трассировка и оценка (следующая итерация)
+- LangSmith — трассировка (LLM, узлы LangGraph, RAG, MCP); настраивается переменными окружения
 - Pytest — тесты
 
 ### Архитектура (модули)
@@ -36,9 +36,10 @@ st.markdown(
 - `processmind.rag` — Automation Knowledge Base: паттерны (Markdown), эмбеддинги, ChromaDB, поиск Top-3
 - `processmind.mcp` — собственный MCP-сервер (validate_process, calculate_process_metrics, simulate_automation и др.) и MCP-клиент (stdio) для LangGraph
 - `processmind.visualization` — построение AS-IS/TO-BE диаграмм (Graphviz)
-- `processmind.evaluation` — Evaluation Pipeline (структурные проверки, заготовка под LangSmith)
+- `processmind.observability` — конфигурация и декораторы трассировки LangSmith
+- `evals/` — Golden Dataset (30 примеров), метрики Hit@3 и F1, A/B-эксперимент, эксперимент с temperature; отчёт — `EVALS.md`
 
-### Ограничения текущего MVP
+### Ограничения
 - Извлечение из PDF/PNG/JPG требует OPENAI_API_KEY; PDF без текстового слоя (сканы) не
   поддерживаются — загрузите их как изображение.
 - Анализ работает только над подтверждённым процессом со страницы «Распознавание процесса».

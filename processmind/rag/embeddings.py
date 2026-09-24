@@ -13,6 +13,7 @@ import openai
 from openai import OpenAI
 
 from processmind.config import Settings, get_settings
+from processmind.observability import traced
 from processmind.rag.errors import KnowledgeBaseError
 
 EMBED_BATCH_SIZE = 64
@@ -29,9 +30,17 @@ class OpenAIEmbedder:
         self._client = client
         self.model = model
         self._batch_size = batch_size
+        self.tokens_used = 0  # накопленные токены запросов эмбеддингов (для оценки стоимости RAG)
 
+    @traced(
+        name="openai.embeddings",
+        run_type="embedding",
+        process_inputs=lambda inputs: {"texts": len(inputs.get("texts", []))},
+        process_outputs=lambda vectors: {"vectors": len(vectors), "dimensions": len(vectors[0]) if vectors else 0},
+    )
     def embed(self, texts: list[str]) -> list[list[float]]:
         vectors: list[list[float]] = []
+        request_tokens = 0
         for start in range(0, len(texts), self._batch_size):
             batch = texts[start : start + self._batch_size]
             try:
@@ -51,7 +60,22 @@ class OpenAIEmbedder:
                     f"OpenAI вернул {len(data)} эмбеддингов на {len(batch)} текстов — индекс не обновлён."
                 )
             vectors.extend(item.embedding for item in data)
+            request_tokens += getattr(getattr(response, "usage", None), "total_tokens", 0) or 0
+        self.tokens_used += request_tokens
+        self._report_usage(request_tokens)
         return vectors
+
+    def _report_usage(self, tokens: int) -> None:
+        """Токены и модель — в текущий run LangSmith (если трассировка включена)."""
+        from langsmith.run_helpers import get_current_run_tree
+
+        run = get_current_run_tree()
+        if run is not None:
+            run.add_metadata({"embedding_model": self.model, "tokens": tokens})
+            try:
+                run.set(usage_metadata={"input_tokens": tokens, "output_tokens": 0, "total_tokens": tokens})
+            except Exception:  # noqa: BLE001 - старые версии SDK без usage_metadata
+                pass
 
 
 def get_embedder(settings: Settings | None = None) -> OpenAIEmbedder:

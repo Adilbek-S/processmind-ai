@@ -235,6 +235,14 @@ def test_invalid_process_returns_errors_and_stops_early(harness):
     assert run.report.recommendations == [] and run.report.simulation is None
 
 
+@pytest.mark.parametrize("payload", [None, [], "процесс", 42, {}, {"process_id": "p", "name": "n", "steps": "x"}])
+def test_non_object_or_malformed_process_is_reported_as_invalid_not_raised(harness, payload):
+    """Найдено аудитом: start_analysis(None) падал с AttributeError. Любой некорректный ввод — статус invalid и список ошибок."""
+    run = start_analysis(harness.graph, payload, RUNS)  # напрямую: Harness.start подменяет пустые значения процессом по умолчанию
+    assert run.status == "finished" and run.report.status == "invalid" and run.report.errors
+    assert harness.llm.calls == [] and harness.queries == []  # дальше валидации дело не идёт
+
+
 def test_llm_recommendations_are_validated_and_rejected_ones_are_reported(mcp_client, kb):
     def responder(messages):
         pattern = context_of(messages)["knowledge_base_patterns"][0]["pattern_id"]

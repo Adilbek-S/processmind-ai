@@ -18,7 +18,7 @@ from pydantic import BaseModel, Field
 
 from processmind.analysis.skill import Skill
 from processmind.models import ProcessSpec, ProcessStep
-from processmind.parsing.llm import request_structured
+from processmind.parsing.llm import LLMParams, LLMUsage, request_structured, request_structured_ex
 
 MAX_LONG_STEP_SIGNALS = 3
 # Признаки того, что «подтверждённое» условие на самом деле данными не подтверждается.
@@ -177,20 +177,35 @@ def build_llm_context(
     }
 
 
-def build_messages(skill: Skill, context: dict[str, Any]) -> list[dict[str, str]]:
-    """Системный промпт = методика Skill целиком; пользовательское сообщение = данные процесса."""
+def build_messages(skill: Skill, context: dict[str, Any], question: str | None = None) -> list[dict[str, str]]:
+    """Системный промпт = методика Skill целиком; пользовательское сообщение = данные процесса.
+
+    `question` — необязательный вопрос пользователя (используется в автоматизированных оценках; в приложении его нет).
+    """
+    intro = "Проанализируй процесс по методике и верни рекомендации."
+    if question:
+        intro += f"\nВопрос пользователя: {question}"
     return [
         {"role": "system", "content": skill.body},
-        {
-            "role": "user",
-            "content": "Проанализируй процесс по методике и верни рекомендации. Данные:\n\n"
-            + json.dumps(context, ensure_ascii=False, indent=1),
-        },
+        {"role": "user", "content": intro + " Данные:\n\n" + json.dumps(context, ensure_ascii=False, indent=1)},
     ]
 
 
 def generate_recommendations(client: OpenAI, model: str, skill: Skill, context: dict[str, Any]) -> LLMRecommendationSet:
     return request_structured(client, model, build_messages(skill, context), LLMRecommendationSet, RecommendationError)
+
+
+def generate_recommendations_ex(
+    client: OpenAI,
+    model: str,
+    skill: Skill,
+    context: dict[str, Any],
+    *,
+    question: str | None = None,
+    params: LLMParams | None = None,
+) -> tuple[LLMRecommendationSet, LLMUsage]:
+    """То же, что generate_recommendations, но возвращает фактические токены и задержку (для оценок качества)."""
+    return request_structured_ex(client, model, build_messages(skill, context, question), LLMRecommendationSet, RecommendationError, params)
 
 
 # ---------- программная валидация ----------

@@ -17,13 +17,23 @@ class Settings(BaseSettings):
     openai_model: str = "gpt-4o-mini"
     embedding_model: str = "text-embedding-3-small"
 
+    # Параметры генерации LLM. Значения выбраны по результатам экспериментов из EVALS.md.
+    llm_temperature: float = 0.0
+    llm_top_p: float = 1.0
+    llm_max_tokens: int = 4096
+    llm_seed: int | None = None  # None — не передавать (в приложении); оценки задают seed для воспроизводимости
+
     # ChromaDB
     chroma_persist_dir: str = "./data/chroma"
 
     # Automation Knowledge Base: каталог Markdown-паттернов (None — каталог по умолчанию в репозитории)
     knowledge_base_dir: str | None = None
 
-    # LangSmith / LangChain tracing
+    # LangSmith. Поддерживаются оба набора имён: актуальные LANGSMITH_* и прежние LANGCHAIN_*.
+    langsmith_tracing: bool | None = None
+    langsmith_api_key: str | None = None
+    langsmith_project: str | None = None
+    langsmith_endpoint: str | None = None
     langchain_tracing_v2: bool = False
     langchain_api_key: str | None = None
     langchain_project: str = "processmind-ai"

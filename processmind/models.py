@@ -38,12 +38,3 @@ class ProcessSpec(BaseModel):
     actors: list[str] = Field(default_factory=list)
     systems: list[str] = Field(default_factory=list)
     metadata: dict = Field(default_factory=dict)
-
-
-class EvaluationResult(BaseModel):
-    """Результат проверки качества ProcessSpec / пайплайна (Evaluation Pipeline)."""
-
-    target_id: str
-    checks: dict[str, bool] = Field(default_factory=dict)
-    score: float = 0.0
-    notes: str | None = None

@@ -18,6 +18,7 @@ from pydantic import BaseModel, Field
 
 from processmind.config import Settings, get_settings
 from processmind.models import ProcessSpec
+from processmind.observability import traced
 from processmind.rag.embeddings import Embedder, get_embedder
 from processmind.rag.errors import KnowledgeBaseError
 from processmind.rag.patterns import AutomationPattern, PatternChunk, chunk_pattern, load_patterns
@@ -159,6 +160,26 @@ def build_knowledge_base(
     return report
 
 
+def _retriever_outputs(matches: list[PatternMatch]) -> dict:
+    """Формат вывода retriever-run LangSmith: документы с метаданными (в интерфейсе показываются как найденные фрагменты)."""
+    return {
+        "documents": [
+            {
+                "page_content": m.chunks[0].text,
+                "type": "Document",
+                "metadata": {"pattern_id": m.pattern_id, "title": m.title, "source": m.source, "section": m.chunks[0].section, "chunk_id": m.chunks[0].chunk_id, "score": m.score},
+            }
+            for m in matches
+        ]
+    }
+
+
+@traced(
+    name="rag.search_automation_patterns",
+    run_type="retriever",
+    process_inputs=lambda inputs: {"query": inputs.get("query"), "top_k": inputs.get("top_k")},
+    process_outputs=_retriever_outputs,
+)
 def search_automation_patterns(
     query: str,
     top_k: int = 3,

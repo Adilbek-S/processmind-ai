@@ -1,0 +1,1764 @@
+[
+  {
+    "test_id": "GD-001",
+    "category": "manual_detection",
+    "kind": "positive",
+    "description": "Заказы приходят с сайта автоматически, но часть заказов приходит письмом, и оператор перепечатывает их в учётную систему.",
+    "process": {
+      "process_id": "gd-001",
+      "name": "Обработка входящих заказов",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Получить заказ через форму сайта",
+          "actor": "Система приёма заказов",
+          "is_manual": false,
+          "duration_minutes": 2,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Перепечатать заказ из письма в учётную систему",
+          "actor": "Оператор склада",
+          "is_manual": true,
+          "duration_minutes": 25,
+          "pain_points": [
+            "один и тот же заказ вводится повторно",
+            "опечатки при переносе данных"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Отправить клиенту подтверждение",
+          "actor": "Система приёма заказов",
+          "is_manual": false,
+          "duration_minutes": 1
+        }
+      ]
+    },
+    "question": "Какие операции процесса выполняются вручную и какие из них имеет смысл автоматизировать?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-005"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-005",
+          "AP-006",
+          "AP-007"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "операция уже автоматизирована"
+      },
+      {
+        "step_id": "s3",
+        "pattern_ids": null,
+        "reason": "операция уже автоматизирована"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-002",
+    "category": "manual_detection",
+    "kind": "positive",
+    "description": "Выгрузка данных продаж автоматическая, но сводную таблицу из трёх выгрузок аналитик собирает вручную каждый месяц.",
+    "process": {
+      "process_id": "gd-002",
+      "name": "Ежемесячный отчёт по продажам",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Выгрузить данные продаж из систем",
+          "actor": "Система отчётности",
+          "is_manual": false,
+          "duration_minutes": 5,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Собрать сводную таблицу из трёх выгрузок",
+          "actor": "Аналитик",
+          "is_manual": true,
+          "duration_minutes": 180,
+          "pain_points": [
+            "ручное копирование между файлами",
+            "ошибки при сведении цифр"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Отправить отчёт руководителю",
+          "actor": "Аналитик",
+          "is_manual": true,
+          "duration_minutes": 5
+        }
+      ]
+    },
+    "question": "Какие операции процесса выполняются вручную и какие из них имеет смысл автоматизировать?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-012"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-012",
+          "AP-006",
+          "AP-005"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "операция уже автоматизирована"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-003",
+    "category": "manual_detection",
+    "kind": "positive",
+    "description": "Оформление нового сотрудника: карточку в кадровой системе заводят вручную по бумажной анкете; собеседование и выдача пропуска автоматизации не требуют.",
+    "process": {
+      "process_id": "gd-003",
+      "name": "Оформление нового сотрудника",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Провести собеседование с кандидатом",
+          "actor": "Руководитель отдела",
+          "is_manual": true,
+          "duration_minutes": 60,
+          "description": "Оценка кандидата требует живого разговора и суждения интервьюера",
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Завести карточку сотрудника в кадровой системе по анкете",
+          "actor": "Специалист по кадрам",
+          "is_manual": true,
+          "duration_minutes": 30,
+          "pain_points": [
+            "данные анкеты набираются вручную",
+            "те же данные позже вводят в систему пропусков"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Выдать пропуск в офис",
+          "actor": "Администратор",
+          "is_manual": true,
+          "duration_minutes": 10
+        }
+      ]
+    },
+    "question": "Какие операции процесса выполняются вручную и какие из них имеет смысл автоматизировать?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-005"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-005",
+          "AP-006",
+          "AP-007"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "оценка кандидата требует человеческого суждения"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-004",
+    "category": "applicability",
+    "kind": "positive",
+    "description": "Сотрудники цехов присылают заявки на ремонт оборудования на общую почту; диспетчер читает каждую и решает, какой бригаде её отдать.",
+    "process": {
+      "process_id": "gd-004",
+      "name": "Заявки на ремонт оборудования",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Принять заявку на общую почту",
+          "actor": "Цех",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Выбрать бригаду и передать ей заявку",
+          "actor": "Диспетчер",
+          "is_manual": true,
+          "duration_minutes": 15,
+          "pain_points": [
+            "заявки ждут, пока диспетчер освободится",
+            "часть заявок уходит не той бригаде"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Выполнить ремонт",
+          "actor": "Ремонтная бригада",
+          "is_manual": true,
+          "duration_minutes": 120
+        }
+      ]
+    },
+    "question": "Какие способы (паттерны) автоматизации применимы к описанной проблеме?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-001"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-001",
+          "AP-011",
+          "AP-013"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s3",
+        "pattern_ids": null,
+        "reason": "ремонт — физическая работа, программной автоматизации не подлежит"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-005",
+    "category": "applicability",
+    "kind": "positive",
+    "description": "Заявления на отпуск подписываются на бумаге у нескольких руководителей; никто не знает, на каком этапе находится заявление.",
+    "process": {
+      "process_id": "gd-005",
+      "name": "Согласование отпуска",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Написать заявление на отпуск",
+          "actor": "Сотрудник",
+          "is_manual": true,
+          "duration_minutes": 10,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Собрать подписи руководителей на бумажном заявлении",
+          "actor": "Сотрудник",
+          "is_manual": true,
+          "duration_minutes": 240,
+          "pain_points": [
+            "документ ходит по кабинетам",
+            "нет информации о текущем этапе согласования"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Внести отпуск в график",
+          "actor": "Специалист по кадрам",
+          "is_manual": true,
+          "duration_minutes": 15
+        }
+      ]
+    },
+    "question": "Какие способы (паттерны) автоматизации применимы к описанной проблеме?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-002"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-002",
+          "AP-004",
+          "AP-009"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-006",
+    "category": "applicability",
+    "kind": "positive",
+    "description": "Обращения клиентов приходят по почте, с сайта и по телефону; их вносят в журнал вручную, часть теряется, подтверждение клиент не получает.",
+    "process": {
+      "process_id": "gd-006",
+      "name": "Приём обращений клиентов",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Принять обращение по любому каналу",
+          "actor": "Оператор",
+          "is_manual": true,
+          "duration_minutes": 5,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Внести обращение в журнал и присвоить номер",
+          "actor": "Оператор",
+          "is_manual": true,
+          "duration_minutes": 10,
+          "pain_points": [
+            "обращения регистрируются с опозданием",
+            "часть обращений не попадает в журнал"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Ответить по существу",
+          "actor": "Специалист",
+          "is_manual": true,
+          "duration_minutes": 40
+        }
+      ]
+    },
+    "question": "Какие способы (паттерны) автоматизации применимы к описанной проблеме?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-008"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-008",
+          "AP-004",
+          "AP-011"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-007",
+    "category": "routing",
+    "kind": "positive",
+    "description": "Обращения падают в общий ящик поддержки; координатор вручную распределяет их по отделам в зависимости от типа и продукта.",
+    "process": {
+      "process_id": "gd-007",
+      "name": "Поддержка клиентов",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Получить обращение в общий ящик",
+          "actor": "Система почты",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Определить отдел по типу и продукту и переслать обращение",
+          "actor": "Координатор поддержки",
+          "is_manual": true,
+          "duration_minutes": 8,
+          "pain_points": [
+            "координатор — узкое место",
+            "обращения пересылаются повторно"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Ответить клиенту",
+          "actor": "Специалист отдела",
+          "is_manual": true,
+          "duration_minutes": 30
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-001"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-001",
+          "AP-011",
+          "AP-008"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "операция уже автоматизирована"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-008",
+    "category": "routing",
+    "kind": "positive",
+    "description": "Внутренние ИТ-заявки передают в нужную группу вручную; при ошибке заявка возвращается и теряет день.",
+    "process": {
+      "process_id": "gd-008",
+      "name": "Обработка ИТ-заявок",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Зарегистрировать ИТ-заявку",
+          "actor": "Система заявок",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Передать заявку в нужную группу специалистов",
+          "actor": "Дежурный администратор",
+          "is_manual": true,
+          "duration_minutes": 6,
+          "pain_points": [
+            "частые ошибочные передачи",
+            "возвраты заявок между группами"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Решить проблему",
+          "actor": "Группа поддержки",
+          "is_manual": true,
+          "duration_minutes": 45
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-001"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-001",
+          "AP-011",
+          "AP-013"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s3",
+        "pattern_ids": null,
+        "reason": "решение технической проблемы требует экспертизы специалиста"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-009",
+    "category": "routing",
+    "kind": "positive",
+    "description": "Для каждого региона есть закреплённый менеджер; заказы к нему пересылает помощник по таблице соответствий.",
+    "process": {
+      "process_id": "gd-009",
+      "name": "Обработка заказов по регионам",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Принять заказ клиента",
+          "actor": "Помощник отдела продаж",
+          "is_manual": true,
+          "duration_minutes": 10,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Найти менеджера региона в таблице и передать заказ",
+          "actor": "Помощник отдела продаж",
+          "is_manual": true,
+          "duration_minutes": 7,
+          "description": "Соответствие «регион — менеджер» хранится в общей таблице и не меняется по ходу работы",
+          "pain_points": [
+            "помощник вручную ищет менеджера для каждого заказа"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Согласовать условия с клиентом",
+          "actor": "Менеджер региона",
+          "is_manual": true,
+          "duration_minutes": 40
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-001"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-001",
+          "AP-013"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s3",
+        "pattern_ids": null,
+        "reason": "согласование условий с клиентом требует переговоров"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-010",
+    "category": "validation",
+    "kind": "positive",
+    "description": "Форма бронирования переговорных приходит с пустыми полями; сотрудник звонит заявителю и уточняет недостающее.",
+    "process": {
+      "process_id": "gd-010",
+      "name": "Бронирование переговорных комнат",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Получить заявку из формы бронирования",
+          "actor": "Система форм",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Проверить заполненность полей и уточнить недостающее по телефону",
+          "actor": "Администратор",
+          "is_manual": true,
+          "duration_minutes": 12,
+          "pain_points": [
+            "в заявках часто нет времени или числа участников",
+            "приходится звонить заявителю"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Подтвердить бронь",
+          "actor": "Администратор",
+          "is_manual": true,
+          "duration_minutes": 3
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-003"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-003",
+          "AP-004"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "операция уже автоматизирована"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-011",
+    "category": "validation",
+    "kind": "positive",
+    "description": "При регистрации на мероприятие люди вводят даты в разных форматах и забывают e-mail; организатор проверяет каждую запись глазами.",
+    "process": {
+      "process_id": "gd-011",
+      "name": "Регистрация участников мероприятия",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Принять регистрацию участника",
+          "actor": "Система регистрации",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Вручную проверить формат дат и наличие e-mail в каждой записи",
+          "actor": "Организатор",
+          "is_manual": true,
+          "duration_minutes": 90,
+          "pain_points": [
+            "ошибки в датах и пропущенные e-mail находят слишком поздно"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Разослать приглашения",
+          "actor": "Организатор",
+          "is_manual": true,
+          "duration_minutes": 20
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-003"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-003",
+          "AP-004"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-012",
+    "category": "validation",
+    "kind": "positive",
+    "description": "Пакет документов клиента проверяют на комплектность вручную; чаще всего не хватает документов, и заявку возвращают.",
+    "process": {
+      "process_id": "gd-012",
+      "name": "Приём документов от клиента",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Принять пакет документов",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 5,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Проверить комплектность пакета по перечню и вернуть заявку при нехватке",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 25,
+          "pain_points": [
+            "перечень обязательных документов проверяется по памяти",
+            "заявки возвращаются на доработку"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Передать пакет на рассмотрение",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 5
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-003"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-003",
+          "AP-007"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-013",
+    "category": "deduplication",
+    "kind": "positive",
+    "description": "Данные нового клиента вносят в CRM, затем снова в биллинг и ещё раз в таблицу отдела.",
+    "process": {
+      "process_id": "gd-013",
+      "name": "Заведение нового клиента",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Ввести данные клиента в CRM",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 10,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Ввести те же данные клиента в биллинговую систему",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 10,
+          "pain_points": [
+            "одни и те же данные вводятся трижды",
+            "в копиях появляются расхождения"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Добавить клиента в таблицу отдела",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 5,
+          "pain_points": [
+            "ручной перенос из CRM"
+          ]
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-005"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-005",
+          "AP-006"
+        ]
+      },
+      {
+        "step_id": "s3",
+        "pattern_ids": [
+          "AP-005",
+          "AP-006"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-014",
+    "category": "deduplication",
+    "kind": "positive",
+    "description": "Кадровик набирает реквизиты сотрудника в кадровой системе, в системе расчёта отпусков и в системе пропусков.",
+    "process": {
+      "process_id": "gd-014",
+      "name": "Ведение данных сотрудника",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Внести реквизиты сотрудника в кадровую систему",
+          "actor": "Кадровик",
+          "is_manual": true,
+          "duration_minutes": 12,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Повторно внести реквизиты в систему расчёта отпусков",
+          "actor": "Кадровик",
+          "is_manual": true,
+          "duration_minutes": 12,
+          "pain_points": [
+            "двойной ввод одних и тех же реквизитов"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Повторно внести реквизиты в систему пропусков",
+          "actor": "Кадровик",
+          "is_manual": true,
+          "duration_minutes": 12,
+          "pain_points": [
+            "двойной ввод одних и тех же реквизитов"
+          ]
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-005"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-005",
+          "AP-006"
+        ]
+      },
+      {
+        "step_id": "s3",
+        "pattern_ids": [
+          "AP-005",
+          "AP-006"
+        ]
+      },
+      {
+        "step_id": "s1",
+        "pattern_ids": [
+          "AP-005",
+          "AP-006"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-015",
+    "category": "deduplication",
+    "kind": "positive",
+    "description": "Параметры заказа менеджер копирует из формы в накладную, а затем ещё и в письмо поставщику.",
+    "process": {
+      "process_id": "gd-015",
+      "name": "Оформление заказа поставщику",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Принять заказ через форму",
+          "actor": "Система форм",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Скопировать параметры заказа в накладную и письмо поставщику",
+          "actor": "Менеджер по закупкам",
+          "is_manual": true,
+          "duration_minutes": 20,
+          "pain_points": [
+            "параметры переписываются вручную из формы в два документа",
+            "опечатки в накладной"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Отправить письмо поставщику",
+          "actor": "Менеджер по закупкам",
+          "is_manual": true,
+          "duration_minutes": 3
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-005"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-005",
+          "AP-010",
+          "AP-006"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "операция уже автоматизирована"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-016",
+    "category": "notifications",
+    "kind": "positive",
+    "description": "Клиенты звонят узнать статус заявки, потому что о смене статуса им никто не сообщает.",
+    "process": {
+      "process_id": "gd-016",
+      "name": "Обработка заявок клиентов",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Принять и зарегистрировать заявку",
+          "actor": "Система заявок",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Обработать заявку и менять её статус",
+          "actor": "Специалист",
+          "is_manual": true,
+          "duration_minutes": 60,
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Сообщить клиенту о смене статуса по телефону",
+          "actor": "Специалист",
+          "is_manual": true,
+          "duration_minutes": 10,
+          "pain_points": [
+            "клиенты сами звонят и спрашивают о статусе",
+            "сообщать о каждом статусе вручную некогда"
+          ]
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s3",
+    "expected_pattern_ids": [
+      "AP-004"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s3",
+        "pattern_ids": [
+          "AP-004"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "операция уже автоматизирована"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-017",
+    "category": "notifications",
+    "kind": "positive",
+    "description": "Исполнители узнают о новых задачах случайно, когда сами открывают общий список.",
+    "process": {
+      "process_id": "gd-017",
+      "name": "Распределение задач в команде",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Назначить исполнителя на задачу",
+          "actor": "Руководитель группы",
+          "is_manual": true,
+          "duration_minutes": 5,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Проверять список на новые задачи",
+          "actor": "Исполнитель",
+          "is_manual": true,
+          "duration_minutes": 20,
+          "pain_points": [
+            "новые задачи замечают с опозданием",
+            "исполнители узнают о назначении случайно"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Выполнить задачу",
+          "actor": "Исполнитель",
+          "is_manual": true,
+          "duration_minutes": 90
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-004"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-004",
+          "AP-013"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s3",
+        "pattern_ids": null,
+        "reason": "выполнение содержательной задачи не автоматизируется"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-018",
+    "category": "notifications",
+    "kind": "positive",
+    "description": "Документ ждёт решения согласующего, но тот об этом не знает; ответственный сам пишет письма-напоминания.",
+    "process": {
+      "process_id": "gd-018",
+      "name": "Согласование документа",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Отправить документ согласующему",
+          "actor": "Ответственный",
+          "is_manual": true,
+          "duration_minutes": 5,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Напоминать согласующему письмами о необходимости решения",
+          "actor": "Ответственный",
+          "is_manual": true,
+          "duration_minutes": 15,
+          "pain_points": [
+            "согласующий не знает, что документ ждёт его решения",
+            "напоминания пишутся вручную"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Принять решение по документу",
+          "actor": "Согласующий",
+          "is_manual": true,
+          "duration_minutes": 30
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-004"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-004",
+          "AP-002",
+          "AP-009"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s3",
+        "pattern_ids": null,
+        "reason": "решение по документу принимает человек"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-019",
+    "category": "other_patterns",
+    "kind": "positive",
+    "description": "Бухгалтерия получает счета сканами; оператор перепечатывает реквизиты и суммы из скана в систему.",
+    "process": {
+      "process_id": "gd-019",
+      "name": "Обработка входящих счетов",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Получить скан счёта",
+          "actor": "Оператор",
+          "is_manual": true,
+          "duration_minutes": 3,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Перепечатать реквизиты и суммы из скана в учётную систему",
+          "actor": "Оператор",
+          "is_manual": true,
+          "duration_minutes": 15,
+          "pain_points": [
+            "ручной набор с бумажных сканов",
+            "ошибки в реквизитах и суммах"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Оплатить счёт",
+          "actor": "Бухгалтер",
+          "is_manual": true,
+          "duration_minutes": 10
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-007"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-007",
+          "AP-005",
+          "AP-003"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-020",
+    "category": "other_patterns",
+    "kind": "positive",
+    "description": "Договоры согласуют на бумаге: юрист, финансист и директор подписывают по очереди, версии документа расходятся.",
+    "process": {
+      "process_id": "gd-020",
+      "name": "Согласование договоров",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Подготовить проект договора",
+          "actor": "Юрист",
+          "is_manual": true,
+          "duration_minutes": 120,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Обойти согласующих с бумажным договором и собрать подписи",
+          "actor": "Помощник юриста",
+          "is_manual": true,
+          "duration_minutes": 300,
+          "pain_points": [
+            "версии договора расходятся",
+            "неясно, у кого сейчас документ"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Подписать договор",
+          "actor": "Директор",
+          "is_manual": true,
+          "duration_minutes": 10
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-002"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-002",
+          "AP-004",
+          "AP-010"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s3",
+        "pattern_ids": [
+          "AP-001"
+        ],
+        "reason": "подпись руководителя — ответственное решение человека"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-021",
+    "category": "other_patterns",
+    "kind": "positive",
+    "description": "Сроки выполнения задач ведут в таблице; о просрочке узнают уже после того, как срок прошёл.",
+    "process": {
+      "process_id": "gd-021",
+      "name": "Контроль выполнения поручений",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Зафиксировать поручение и срок в таблице",
+          "actor": "Секретарь",
+          "is_manual": true,
+          "duration_minutes": 5,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Просматривать таблицу и искать просроченные поручения",
+          "actor": "Секретарь",
+          "is_manual": true,
+          "duration_minutes": 45,
+          "pain_points": [
+            "о просрочке узнают постфактум",
+            "нет предупреждения о приближении срока"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Выполнить поручение",
+          "actor": "Исполнитель",
+          "is_manual": true,
+          "duration_minutes": 120
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-009"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-009",
+          "AP-004"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-022",
+    "category": "other_patterns",
+    "kind": "positive",
+    "description": "Раз в квартал два специалиста вручную сравнивают записи в двух системах и ищут расхождения.",
+    "process": {
+      "process_id": "gd-022",
+      "name": "Квартальная сверка данных",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Выгрузить записи из двух систем",
+          "actor": "Специалист",
+          "is_manual": true,
+          "duration_minutes": 20,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Вручную сравнить записи двух систем и найти расхождения",
+          "actor": "Специалист",
+          "is_manual": true,
+          "duration_minutes": 300,
+          "pain_points": [
+            "сверка выборочная и поздняя",
+            "поиск причин расхождений занимает много времени"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Исправить найденные расхождения",
+          "actor": "Специалист",
+          "is_manual": true,
+          "duration_minutes": 60
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-014"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-014",
+          "AP-006"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-023",
+    "category": "other_patterns",
+    "kind": "positive",
+    "description": "Письма клиентам и акты составляют, копируя старые файлы; в них остаются чужие данные и разные формулировки.",
+    "process": {
+      "process_id": "gd-023",
+      "name": "Подготовка документов для клиентов",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Найти похожий документ в архиве",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 10,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Скопировать старый документ и заменить данные вручную",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 35,
+          "pain_points": [
+            "остаются чужие данные",
+            "формулировки отличаются от документа к документу"
+          ],
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Отправить документ клиенту",
+          "actor": "Менеджер",
+          "is_manual": true,
+          "duration_minutes": 3
+        }
+      ]
+    },
+    "question": "Что в этом процессе стоит автоматизировать и каким способом?",
+    "target_step_id": "s2",
+    "expected_pattern_ids": [
+      "AP-010"
+    ],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s2",
+        "pattern_ids": [
+          "AP-010",
+          "AP-005"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": []
+  },
+  {
+    "test_id": "GD-024",
+    "category": "no_automation",
+    "kind": "negative",
+    "description": "Все операции процесса уже выполняются системой без участия человека.",
+    "process": {
+      "process_id": "gd-024",
+      "name": "Автоматическая отправка квитанций",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Получить платёж",
+          "actor": "Платёжная система",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Сформировать квитанцию",
+          "actor": "Система документов",
+          "is_manual": false,
+          "duration_minutes": 1,
+          "next_steps": [
+            "s3"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "Отправить квитанцию плательщику",
+          "actor": "Почтовый сервис",
+          "is_manual": false,
+          "duration_minutes": 1
+        }
+      ]
+    },
+    "question": "Обоснована ли автоматизация в этом процессе? Если да — что и как автоматизировать?",
+    "target_step_id": null,
+    "expected_pattern_ids": [],
+    "acceptable_recommendations": [],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "уже автоматизировано"
+      },
+      {
+        "step_id": "s2",
+        "pattern_ids": null,
+        "reason": "уже автоматизировано"
+      },
+      {
+        "step_id": "s3",
+        "pattern_ids": null,
+        "reason": "уже автоматизировано"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-025",
+    "category": "no_automation",
+    "kind": "negative",
+    "description": "Творческая единичная работа: концепцию кампании придумывают заново каждый раз, повторяющихся действий нет.",
+    "process": {
+      "process_id": "gd-025",
+      "name": "Разработка рекламной концепции",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Придумать концепцию рекламной кампании",
+          "actor": "Креативный директор",
+          "is_manual": true,
+          "duration_minutes": 480,
+          "description": "Уникальная творческая работа, результат каждый раз новый",
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Обсудить концепцию с командой на встрече",
+          "actor": "Команда",
+          "is_manual": true,
+          "duration_minutes": 90,
+          "description": "Живое обсуждение идей"
+        }
+      ]
+    },
+    "question": "Обоснована ли автоматизация в этом процессе? Если да — что и как автоматизировать?",
+    "target_step_id": null,
+    "expected_pattern_ids": [],
+    "acceptable_recommendations": [],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "творческая работа не автоматизируется"
+      },
+      {
+        "step_id": "s2",
+        "pattern_ids": null,
+        "reason": "живое обсуждение не автоматизируется"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-026",
+    "category": "no_automation",
+    "kind": "negative",
+    "description": "Редкая короткая операция без проблем: раз в год сменить пароль от архива — пять минут, жалоб нет.",
+    "process": {
+      "process_id": "gd-026",
+      "name": "Ежегодное обслуживание архива",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Сменить общий пароль от архива",
+          "actor": "Администратор",
+          "is_manual": true,
+          "duration_minutes": 5,
+          "description": "Выполняется раз в год, проблем и жалоб нет"
+        }
+      ]
+    },
+    "question": "Обоснована ли автоматизация в этом процессе? Если да — что и как автоматизировать?",
+    "target_step_id": null,
+    "expected_pattern_ids": [],
+    "acceptable_recommendations": [],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "редкая короткая операция без проблем — автоматизация не окупится"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-027",
+    "category": "no_automation",
+    "kind": "negative",
+    "description": "Операции строятся на человеческом суждении и переговорах: ни повторяющейся рутины, ни проблем в описании нет.",
+    "process": {
+      "process_id": "gd-027",
+      "name": "Закупка нестандартного оборудования",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Провести переговоры о цене с поставщиком",
+          "actor": "Руководитель закупок",
+          "is_manual": true,
+          "duration_minutes": 120,
+          "description": "Переговоры и торг, исход зависит от позиций сторон",
+          "next_steps": [
+            "s2"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Оценить надёжность поставщика по личной встрече",
+          "actor": "Руководитель закупок",
+          "is_manual": true,
+          "duration_minutes": 90,
+          "description": "Экспертная оценка по итогам личного общения"
+        }
+      ]
+    },
+    "question": "Обоснована ли автоматизация в этом процессе? Если да — что и как автоматизировать?",
+    "target_step_id": null,
+    "expected_pattern_ids": [],
+    "acceptable_recommendations": [],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": null,
+        "reason": "переговоры требуют человека"
+      },
+      {
+        "step_id": "s2",
+        "pattern_ids": null,
+        "reason": "экспертная оценка по встрече требует человека"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-028",
+    "category": "ambiguous",
+    "kind": "ambiguous",
+    "description": "Об операции известно только название «обработать заявку»: тип выполнения, детали и проблемы не описаны.",
+    "process": {
+      "process_id": "gd-028",
+      "name": "Обработка заявки",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Обработать заявку",
+          "actor": "Менеджер",
+          "is_manual": null,
+          "duration_minutes": 20
+        }
+      ]
+    },
+    "question": "Обоснована ли автоматизация в этом процессе? Если да — что и как автоматизировать?",
+    "target_step_id": "s1",
+    "expected_pattern_ids": [],
+    "acceptable_recommendations": [],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": [
+          "AP-007",
+          "AP-014",
+          "AP-012"
+        ],
+        "reason": "данных недостаточно, чтобы уверенно рекомендовать конкретный паттерн"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-029",
+    "category": "ambiguous",
+    "kind": "ambiguous",
+    "description": "Согласование иногда идёт вручную по почте, иногда через систему — как получится; регулярной проблемы не описано.",
+    "process": {
+      "process_id": "gd-029",
+      "name": "Согласование решений",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Согласовать решение",
+          "actor": "Руководитель",
+          "is_manual": null,
+          "duration_minutes": 45,
+          "description": "Иногда согласуем вручную по почте, иногда через систему — по-разному"
+        }
+      ]
+    },
+    "question": "Обоснована ли автоматизация в этом процессе? Если да — что и как автоматизировать?",
+    "target_step_id": "s1",
+    "expected_pattern_ids": [],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": [
+          "AP-002",
+          "AP-004"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": [
+          "AP-007",
+          "AP-014"
+        ],
+        "reason": "нет признаков распознавания документов или сверки"
+      }
+    ]
+  },
+  {
+    "test_id": "GD-030",
+    "category": "ambiguous",
+    "kind": "ambiguous",
+    "description": "Проверку данных клиента иногда делают вручную; упоминается, что бывают ошибки ввода, но подробностей нет.",
+    "process": {
+      "process_id": "gd-030",
+      "name": "Проверка данных клиента",
+      "steps": [
+        {
+          "id": "s1",
+          "name": "Проверить данные клиента",
+          "actor": "Оператор",
+          "is_manual": null,
+          "duration_minutes": 15,
+          "pain_points": [
+            "иногда бывают ошибки ввода"
+          ]
+        }
+      ]
+    },
+    "question": "Обоснована ли автоматизация в этом процессе? Если да — что и как автоматизировать?",
+    "target_step_id": "s1",
+    "expected_pattern_ids": [],
+    "acceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": [
+          "AP-003",
+          "AP-005"
+        ]
+      }
+    ],
+    "unacceptable_recommendations": [
+      {
+        "step_id": "s1",
+        "pattern_ids": [
+          "AP-001",
+          "AP-012",
+          "AP-007"
+        ],
+        "reason": "нет признаков маршрутизации, отчётности или сканов"
+      }
+    ]
+  }
+]

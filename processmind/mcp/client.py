@@ -35,6 +35,8 @@ from mcp import ClientSession, MCPError, StdioServerParameters
 from mcp.client.stdio import stdio_client
 from pydantic import BaseModel
 
+from processmind.observability import traced
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_TIMEOUT_SECONDS = 30.0
 CLEANUP_ALLOWANCE_SECONDS = 15.0
@@ -251,19 +253,38 @@ class SyncMCPClient:
     def list_tools(self) -> list[str]:
         return self._run_coro(self._client.list_tools())
 
+    def _traced_tool(self, name: str, arguments: Any, call) -> dict[str, Any]:
+        """Вызов инструмента как run типа tool: в трейсе видны инструмент, аргументы, результат, длительность и ошибка.
+
+        Трассируется в потоке вызывающего (а не в фоновом потоке клиента), поэтому вызов вкладывается в трейс узла графа.
+        """
+
+        @traced(
+            name=f"mcp.{name}",
+            run_type="tool",
+            metadata={"mcp_server": self.server_name, "transport": "stdio"},
+            process_inputs=lambda _: {"tool": name, "arguments": arguments},
+        )
+        def run() -> dict[str, Any]:
+            return call()
+
+        return run()
+
     def call_tool(self, name: str, arguments: dict[str, Any] | None = None) -> dict[str, Any]:
-        return self._run_coro(self._client.call_tool(name, arguments))
+        return self._traced_tool(name, arguments, lambda: self._run_coro(self._client.call_tool(name, arguments)))
 
     def validate_process(self, process: BaseModel | dict[str, Any]) -> dict[str, Any]:
-        return self._run_coro(self._client.validate_process(process))
+        return self._traced_tool("validate_process", {"process": _to_payload(process)}, lambda: self._run_coro(self._client.validate_process(process)))
 
     def calculate_process_metrics(self, process: BaseModel | dict[str, Any], runs_per_month: int | None = None) -> dict[str, Any]:
-        return self._run_coro(self._client.calculate_process_metrics(process, runs_per_month))
+        args = {"process": _to_payload(process), "runs_per_month": runs_per_month}
+        return self._traced_tool("calculate_process_metrics", args, lambda: self._run_coro(self._client.calculate_process_metrics(process, runs_per_month)))
 
     def simulate_automation(
         self, process: BaseModel | dict[str, Any], automation: list[dict[str, Any]], runs_per_month: int | None = None
     ) -> dict[str, Any]:
-        return self._run_coro(self._client.simulate_automation(process, automation, runs_per_month))
+        args = {"process": _to_payload(process), "automation": automation, "runs_per_month": runs_per_month}
+        return self._traced_tool("simulate_automation", args, lambda: self._run_coro(self._client.simulate_automation(process, automation, runs_per_month)))
 
     @property
     def server_name(self) -> str | None:
