@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>ProcessMind AI — защита финального проекта</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: #111827; background: #fff; }
+  .slide { width: 1280px; height: 720px; padding: 48px 64px 40px; position: relative; overflow: hidden; page-break-after: always; break-after: page; background: #f6f8fc; }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  h1 { font-size: 44px; margin: 0 0 8px; line-height: 1.15; }
+  h2 { font-size: 34px; margin: 0 0 22px; color: #1e3a8a; line-height: 1.2; }
+  h3 { font-size: 20px; margin: 0 0 8px; color: #1e3a8a; }
+  p, li { font-size: 22px; line-height: 1.4; margin: 0 0 10px; }
+  ul { margin: 0; padding-left: 26px; }
+  .sub { font-size: 24px; color: #4b5563; }
+  .num { position: absolute; right: 40px; bottom: 20px; font-size: 16px; color: #9ca3af; }
+  .src { position: absolute; left: 64px; bottom: 20px; font-size: 14px; color: #9ca3af; }
+  .cols { display: flex; gap: 28px; }
+  .col { flex: 1; }
+  .card { background: #fff; border: 1px solid #dbe3f5; border-radius: 12px; padding: 16px 20px; }
+  .card p, .card li { font-size: 19px; }
+  .flow { display: flex; align-items: stretch; gap: 8px; margin-top: 28px; }
+  .flow .b { flex: 1; background: #fff; border: 2px solid #93b4f5; border-radius: 12px; padding: 14px 10px; text-align: center; font-size: 19px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .flow .a { align-self: center; font-size: 28px; color: #2563eb; }
+  table { border-collapse: collapse; width: 100%; background: #fff; }
+  th, td { border: 1px solid #dbe3f5; padding: 8px 12px; font-size: 19px; text-align: left; }
+  th { background: #eaf0fd; }
+  td.r, th.r { text-align: right; }
+  .warn { background: #fff7e0; border: 1px solid #f2d27a; border-radius: 10px; padding: 10px 16px; font-size: 18px; }
+  .bad { color: #b45309; font-weight: 600; }
+  .good { color: #047857; font-weight: 600; }
+  img.shot { width: 100%; border: 1px solid #dbe3f5; border-radius: 8px; background: #fff; display: block; }
+  .crop { overflow: hidden; border: 1px solid #dbe3f5; border-radius: 8px; background: #fff; }
+  .crop img { width: 100%; display: block; }
+  .title-slide { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: #fff; }
+  .title-slide h1 { font-size: 64px; }
+  .title-slide .sub { color: #dbe7ff; font-size: 28px; }
+  .title-slide .warn { color: #111827; }
+  .arch { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 8px; }
+  .arch .n { background: #fff; border: 2px solid #93b4f5; border-radius: 10px; padding: 10px 8px; text-align: center; font-size: 17px; font-weight: 600; }
+  .arch .n.h { border-color: #f59e0b; background: #fff7e0; }
+  .arch .n small { display: block; font-weight: 400; color: #6b7280; font-size: 14px; margin-top: 2px; }
+  .ext { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+  .ext .n { background: #eef2fb; border: 1px dashed #93b4f5; border-radius: 10px; padding: 10px 8px; text-align: center; font-size: 17px; }
+  .ext .n small { display: block; color: #6b7280; font-size: 14px; }
+  .small { font-size: 16px !important; color: #4b5563; }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide title-slide">
+  <div style="margin-top:150px">
+    <h1>ProcessMind AI</h1>
+    <p class="sub">Анализ и автоматизация бизнес-процессов: от PDF или схемы — к обоснованным рекомендациям и модельной оценке TO-BE</p>
+    <p class="sub" style="margin-top:40px; font-size:22px">Финальный проект курса LLM Engineering</p>
+  </div>
+  <div class="warn" style="position:absolute; left:64px; bottom:48px; right:64px;">Все данные в проекте синтетические (демо-процессы, база знаний, Golden Dataset). Показатели «после автоматизации» — модельная оценка, а не прогноз.</div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <h2>Проблема</h2>
+  <div class="cols">
+    <div class="col">
+      <p>У аналитика есть регламент (PDF) или схема (картинка). Нужно понять, что в процессе стоит автоматизировать.</p>
+      <ul>
+        <li>вручную выписать операции, участников, длительности</li>
+        <li>посчитать время и долю ручной работы</li>
+        <li>найти подходящие способы автоматизации</li>
+        <li>прикинуть эффект — чаще всего «на глаз»</li>
+      </ul>
+    </div>
+    <div class="col card">
+      <h3>Чем это плохо</h3>
+      <ul>
+        <li>долго и не повторяется от аналитика к аналитику</li>
+        <li>рекомендации без источников и условий применимости</li>
+        <li>цифры эффекта ничем не подкреплены</li>
+        <li>LLM «из коробки» легко выдумывает недостающие данные</li>
+      </ul>
+    </div>
+  </div>
+  <div class="num">2</div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <h2>Решение</h2>
+  <p>Документ превращается в проверяемую структуру, а каждый шаг анализа опирается на данные, а не на догадки.</p>
+  <div class="flow">
+    <div class="b">PDF / PNG</div><div class="a">→</div>
+    <div class="b">Процесс<br>(ProcessSpec)</div><div class="a">→</div>
+    <div class="b">Метрики<br>(MCP)</div><div class="a">→</div>
+    <div class="b">Паттерны<br>(RAG)</div><div class="a">→</div>
+    <div class="b">Рекомендации<br>(LLM + Skill)</div><div class="a">→</div>
+    <div class="b">Решение<br>человека</div><div class="a">→</div>
+    <div class="b">TO-BE<br>и отчёт</div>
+  </div>
+  <div class="cols" style="margin-top:34px">
+    <div class="card col"><h3>Не выдумывает</h3><p>Нет участника или длительности — значение остаётся пустым и помечается.</p></div>
+    <div class="card col"><h3>LLM предлагает, код проверяет</h3><p>ID операций, ссылки на паттерны и количественные утверждения проверяются программно.</p></div>
+    <div class="card col"><h3>Человек подтверждает</h3><p>Workflow встаёт на паузу; допущения об эффекте задаёт пользователь.</p></div>
+  </div>
+  <div class="num">3</div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <h2>Демо 1: извлечение процесса из PDF</h2>
+  <div class="cols">
+    <div class="col" style="flex:0 0 380px">
+      <ul>
+        <li>PDF → PyMuPDF → LLM (Structured Outputs) → ProcessSpec</li>
+        <li>8 операций; у части нет участника или длительности — <b>пусто, а не выдумано</b></li>
+        <li>таблица редактируется, схема AS-IS обновляется</li>
+        <li>подтверждение пользователя — до анализа</li>
+      </ul>
+    </div>
+    <div class="col"><img class="shot" src="img_extraction.png"></div>
+  </div>
+  <div class="src">Скриншот приложения, реальный вызов OpenAI на синтетическом демо-процессе</div>
+  <div class="num">4</div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <h2>Демо 2: анализ, пауза и TO-BE</h2>
+  <div class="cols">
+    <div class="col" style="flex:0 0 380px">
+      <ul>
+        <li>метрики AS-IS считает MCP-сервер</li>
+        <li>паттерны из RAG, рекомендации со ссылками</li>
+        <li><b>пауза</b> (<code>interrupt</code>): пользователь выбирает рекомендации и задаёт длительность после автоматизации</li>
+        <li>сравнение AS-IS / TO-BE — «модельная оценка», отчёт в Markdown</li>
+      </ul>
+    </div>
+    <div class="col"><img class="shot" src="img_compare.png"></div>
+  </div>
+  <div class="src">Скриншот приложения: сравнение AS-IS и TO-BE (одна выбранная рекомендация, допущение пользователя: 30 → 5 мин)</div>
+  <div class="num">5</div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <h2>Мультимодальность: схема-картинка → процесс</h2>
+  <div class="cols">
+    <div class="col" style="flex:0 0 470px">
+      <ul>
+        <li>PNG/JPG обрабатывает GPT-4o-mini Vision (тот же SDK и схема ответа)</li>
+        <li>Без Vision пользователь со схемой вместо регламента остался бы без анализа</li>
+        <li>Дальше путь тот же: подтверждение → анализ → TO-BE</li>
+      </ul>
+      <div class="warn" style="margin-top:14px"><b>Честно:</b> результат вероятностный. На демо-схеме связи прочитаны как ветвление, тип одной операции менялся от запуска к запуску. Приложение предупреждает и оставляет проверку пользователю.</div>
+    </div>
+    <div class="col"><img class="shot" src="../../samples/demo_process.png" style="width:100%"></div>
+  </div>
+  <div class="src">Слева — результаты аудита; справа — входная схема samples/demo_process.png</div>
+  <div class="num">6</div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <h2>Архитектура</h2>
+  <div class="card" style="padding:12px 16px"><b>Streamlit</b> (4 страницы) → <b>parsing</b> (PyMuPDF · LLM · Vision) → подтверждённый ProcessSpec → <b>LangGraph</b>:</div>
+  <div class="arch" style="margin-top:14px">
+    <div class="n">1. validate_process<small>MCP</small></div>
+    <div class="n">2. calculate_metrics<small>MCP</small></div>
+    <div class="n">3. retrieve_patterns<small>RAG</small></div>
+    <div class="n">4. generate_recommendations<small>LLM + Skill</small></div>
+    <div class="n">5. validate_recommendations<small>код</small></div>
+    <div class="n h">6. human_approval<small>interrupt</small></div>
+    <div class="n">7. simulate_automation<small>MCP</small></div>
+    <div class="n">8. generate_report<small>AnalysisReport</small></div>
+    <div class="n" style="grid-column: span 2; border-style:dashed">Ошибки / нет рекомендаций → сразу в отчёт</div>
+  </div>
+  <div class="ext">
+    <div class="n"><b>MCP-сервер</b><small>отдельный процесс, stdio</small></div>
+    <div class="n"><b>ChromaDB</b><small>14 паттернов, Top-3</small></div>
+    <div class="n"><b>OpenAI</b><small>gpt-4o-mini · эмбеддинги</small></div>
+    <div class="n"><b>LangSmith</b><small>трассировка (опционально)</small></div>
+  </div>
+  <div class="src">Подробно: ARCHITECTURE.md</div>
+  <div class="num">7</div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <h2>LangGraph и human-in-the-loop</h2>
+  <div class="cols">
+    <div class="col">
+      <ul>
+        <li><b>Условные переходы:</b> <code>invalid</code>, <code>failed</code>, <code>no_recommendations</code>, <code>no_selection</code> ведут сразу в отчёт — это штатные исходы, а не исключения</li>
+        <li><b>Пауза:</b> <code>interrupt()</code> + <code>MemorySaver</code>; возобновление через <code>Command(resume=…)</code></li>
+        <li><b>Цикл:</b> некорректное решение пользователя → повторный <code>interrupt</code> с текстом ошибки</li>
+        <li><b>Один граф, а не агенты:</b> задача линейная, поведение предсказуемо</li>
+      </ul>
+    </div>
+    <div class="col card">
+      <h3>«LLM предлагает, код проверяет»</h3>
+      <ul>
+        <li>факты об операции подставляет код</li>
+        <li>отброс: несуществующие операции, паттерны вне найденных, уже автоматизированные операции</li>
+        <li>отброс количественных утверждений об эффекте</li>
+        <li>длительность после автоматизации — допущение пользователя</li>
+      </ul>
+    </div>
+  </div>
+  <div class="num">8</div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <h2>RAG: база знаний паттернов</h2>
+  <div class="cols">
+    <div class="col">
+      <ul>
+        <li>14 синтетических паттернов автоматизации (Markdown)</li>
+        <li>chunking по смысловым разделам: проблема, условия, подход, эффект, ограничения</li>
+        <li><code>text-embedding-3-small</code> + ChromaDB (cosine), Top-3</li>
+        <li>поиск по смыслу, не по ключевым словам</li>
+        <li>reranker не используется</li>
+      </ul>
+    </div>
+    <div class="col">
+      <table>
+        <tr><th>Метрика (23 positive)</th><th class="r">Значение</th></tr>
+        <tr><td>Retrieval Hit@3</td><td class="r"><b>19/23 (83%)</b></td></tr>
+        <tr><td>Recall@3, среднее</td><td class="r">0.826</td></tr>
+        <tr><td>Hit по пулу workflow</td><td class="r">87%</td></tr>
+        <tr><td>Задержка поиска, среднее</td><td class="r">0.28 с</td></tr>
+      </table>
+      <p class="small" style="margin-top:10px">Промахи: GD-002, GD-003, GD-015, GD-018.</p>
+    </div>
+  </div>
+  <div class="src">Источник: EVALS.md, §3.1</div>
+  <div class="num">9</div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <h2>MCP-сервер и Skill</h2>
+  <div class="cols">
+    <div class="col card">
+      <h3>MCP-сервер (свой, отдельный процесс, stdio)</h3>
+      <ul>
+        <li><code>validate_process</code> — проверка структуры и логики</li>
+        <li><code>calculate_process_metrics</code> — время, доля ручных, известное и неизвестное</li>
+        <li><code>simulate_automation</code> — TO-BE по допущениям пользователя</li>
+      </ul>
+      <p class="small">Расчёты — обычный Python, без LLM и без «типового процента сокращения».</p>
+    </div>
+    <div class="col card">
+      <h3>Skill <code>process-analysis</code></h3>
+      <ul>
+        <li><code>SKILL.md</code>: описание, триггеры, методика</li>
+        <li>правила выявления ручных операций и выбора паттернов</li>
+        <li>требования к обоснованию, запрет выдумывать факты</li>
+        <li>тот же файл — системный промпт LLM-узла; читается с диска при каждом запуске, sha256 — в отчёте</li>
+      </ul>
+    </div>
+  </div>
+  <div class="num">10</div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <h2>Оценки и A/B: LLM без RAG (A) и с RAG (B)</h2>
+  <table>
+    <tr><th>Метрика (30 примеров)</th><th class="r">A: без RAG</th><th class="r">B: с RAG</th></tr>
+    <tr><td>Recommendation F1, macro (по смыслу)</td><td class="r">0.725</td><td class="r">0.710</td></tr>
+    <tr><td>Отрицательные: корректно нет рекомендаций (n=4)</td><td class="r">3/4</td><td class="r bad">1/4</td></tr>
+    <tr><td>Рекомендации со ссылкой на паттерн</td><td class="r bad">0%</td><td class="r good">100%</td></tr>
+    <tr><td>Разобраны условия применимости</td><td class="r bad">0%</td><td class="r good">100%</td></tr>
+    <tr><td>Токены prompt, среднее</td><td class="r">6334</td><td class="r">8341</td></tr>
+    <tr><td>Латентность сквозная, среднее</td><td class="r">4.24 с</td><td class="r">7.18 с</td></tr>
+  </table>
+  <p style="margin-top:16px"><b>Вывод:</b> RAG не улучшил точность (−0.014 — в пределах шума), но дал прослеживаемость. Выбран ради объяснимости рекомендаций, цена — токены и задержка.</p>
+  <p class="small">Golden Dataset: 30 примеров (23 positive, 4 negative, 3 ambiguous). Один запуск на конфигурацию, выборка малая, датасет синтетический — оценки вероятно оптимистичны.</p>
+  <div class="src">Источник: EVALS.md, §3–4</div>
+  <div class="num">11</div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <h2>Модель, гиперпараметры и ограничения</h2>
+  <div class="cols">
+    <div class="col">
+      <table>
+        <tr><th>Параметр</th><th>Значение и основание</th></tr>
+        <tr><td>LLM</td><td>gpt-4o-mini: Structured Outputs + Vision, ≈ $0.0016 за анализ; другие модели не сравнивались</td></tr>
+        <tr><td>temperature</td><td>0.0 — эксперимент (6 примеров × 2 × 3 seed) и правило, заданное заранее</td></tr>
+        <tr><td>top_p</td><td>1.0 — не варьировался</td></tr>
+        <tr><td>max_tokens</td><td>4096 — максимум наблюдаемого ответа 881</td></tr>
+      </table>
+    </div>
+    <div class="col card">
+      <h3>Что не сделано / не подтверждено</h3>
+      <ul style="font-size:18px">
+        <li>LangSmith: трейс проверен через API (37 runs), трейсы оценок не отправлялись</li>
+        <li>Vision: связи и типы операций нестабильны</li>
+        <li>нет fallback-модели и кэша ответов</li>
+        <li>состояние паузы — в памяти процесса</li>
+        <li>данных об обратной связи реальных пользователей в проекте нет</li>
+      </ul>
+    </div>
+  </div>
+  <div class="src">Подробно: MODEL_CHOICE.md, EVALS.md, AUDIT.md</div>
+  <div class="num">12</div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <h2>Выводы и что дальше</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Что получилось</h3>
+      <ul>
+        <li>сквозной продукт: документ → процесс → рекомендации → TO-BE → отчёт</li>
+        <li>надёжность — за счёт архитектуры: строгие схемы, проверка кодом, расчёты в MCP, человек в цикле</li>
+        <li>честная оценка, включая неудобный результат про RAG</li>
+        <li>415 автоматических тестов проходят</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Дальше</h3>
+      <ul>
+        <li>реальные (обезличенные) процессы и обратная связь</li>
+        <li>сравнение моделей, fallback и кэш</li>
+        <li>персистентное состояние графа</li>
+        <li>точное чтение связей на схемах</li>
+        <li>трейсы 30 оценочных прогонов в LangSmith</li>
+      </ul>
+    </div>
+  </div>
+  <div class="num">13</div>
+</section>
+
+</body>
+</html>
